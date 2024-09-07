@@ -7,22 +7,31 @@ import {
 } from "@expo-google-fonts/poppins";
 import { Loading } from "./src/components";
 import { theme } from "./src/theme";
+import { Home } from "./src/screens";
+import { useEffect, useState } from "react";
 
 export default function App() {
+  const[splash, setSplash] = useState(false)
   const [fontLoad] = useFonts({
     Poppins_400Regular,
     Poppins_700Bold,
   });
-  if (fontLoad) {
-    return <Loading />;
+
+  function splashScreen(){
+    setSplash(true)
+  }
+  useEffect(() => {
+    setTimeout(splashScreen, 3000)
+  },[])
+
+  if (!fontLoad) {
+    return <Loading/>
   }
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>
-        Open up App.tsx to start working on your app!
-      </Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+    {splash ? <Home/> : <Loading/>}
+    </>
+
   );
 }
 
@@ -35,7 +44,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: theme.fonts.regular,
-    color: theme.colors.green,
     fontSize: 25,
   },
 });

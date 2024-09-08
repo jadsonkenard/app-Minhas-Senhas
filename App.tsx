@@ -1,5 +1,5 @@
 import { StatusBar } from "react-native";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native";
 import {
   useFonts,
   Poppins_400Regular,

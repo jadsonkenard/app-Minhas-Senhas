@@ -3,8 +3,12 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
 import user from "../../assets/user.png";
 import { Button } from "../../components";
+import { Modal } from "../../components";
+import { useState } from "react";
 
 export function Home() {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -14,9 +18,10 @@ export function Home() {
         </View>
         <View style={styles.addPassword}>
           <Text style={styles.yourPass}>Suas senhas</Text>
-          <Button title="Nova"/>
+          <Button title="Nova" onPress={() => setModalVisible(true)}/>
         </View>
       </View>
+      <Modal isVisible={modalVisible} onClose={() => setModalVisible(false)}/>
     </View>
   );
 }

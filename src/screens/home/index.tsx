@@ -1,27 +1,52 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Alert } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
 import user from "../../assets/user.png";
 import { Button } from "../../components";
 import { Modal } from "../../components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+
+ type Data = {
+  nameApp: string;
+  passwordApp: string;
+ }
+const KEY_STORAGE = "@appmypass"
 
 export function Home() {
+  const [data, setData] = useState<Data []>([])
   const [modalVisible, setModalVisible] = useState(false);
+
+  async function getData(){
+    const response = await AsyncStorage.getItem(KEY_STORAGE);
+    const data = response ? JSON.parse(response) : {}
+
+    setData([data])
+  }
+
+  useEffect(() =>{
+    getData()
+  }, [])
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.infoUser}>
-          <Image source={user} style={styles.avatar}/>
+          <Image source={user} style={styles.avatar} />
           <Text style={styles.userName}>Joao</Text>
         </View>
         <View style={styles.addPassword}>
           <Text style={styles.yourPass}>Suas senhas</Text>
-          <Button title="Nova" onPress={() => setModalVisible(true)}/>
+          <Button title="Nova" onPress={() => setModalVisible(true)} />
         </View>
       </View>
-      <Modal isVisible={modalVisible} onClose={() => setModalVisible(false)}/>
+      <Modal
+      isVisible={modalVisible}
+      onClose={() => setModalVisible(false)}
+      />
+      <Text>{data.map(item => item.nameApp)}</Text>
+      <Text>{data.map(item => item.passwordApp)}</Text>
     </View>
   );
 }
@@ -33,9 +58,9 @@ const styles = StyleSheet.create({
   header: {
     height: RFPercentage(18),
     width: "100%",
-    backgroundColor: theme.colors.primary
+    backgroundColor: theme.colors.primary,
   },
-  infoUser:{
+  infoUser: {
     alignItems: "center",
     flexDirection: "row",
     marginTop: RFPercentage(5),
@@ -44,7 +69,7 @@ const styles = StyleSheet.create({
   avatar: {
     height: RFPercentage(5),
     width: RFPercentage(5),
-    borderRadius: 50
+    borderRadius: 50,
   },
   userName: {
     fontFamily: theme.fonts.regular,
@@ -57,11 +82,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: RFPercentage(2),
     marginHorizontal: RFPercentage(2),
-  
   },
   yourPass: {
     fontFamily: theme.fonts.regular,
     color: theme.colors.primaryWhite,
-    fontSize: 22
-  }
+    fontSize: 22,
+  },
 });

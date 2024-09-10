@@ -6,6 +6,8 @@ import { Button } from "../button";
 import { Input } from "../input";
 import Feather from "@expo/vector-icons/Feather";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import 'react-native-get-random-values';
+import { v4 as uuid } from 'uuid';
 
 const KEY_STORAGE = "@appmypass"
 
@@ -20,12 +22,21 @@ export function Modal({ isVisible, onClose}: ModalProps) {
 
   async function saveData(){
     try {
-      const data = {
+      const id = uuid();
+      const newData = {
+        id,
         nameApp,
         passwordApp
       }
+
+      const response = await AsyncStorage.getItem(KEY_STORAGE);
+      const previousData = response ? JSON.parse(response) : [];
+
+      const data = [...previousData, newData];
+
       await AsyncStorage.setItem(KEY_STORAGE, JSON.stringify(data))
-      Alert.alert("Dados", "Senha salva com sucesso!")
+      
+      
     } catch (error) {
       console.log(error)
     }

@@ -7,27 +7,27 @@ import { Modal } from "../../components";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
- type Data = {
+type Data = {
+  id: string;
   nameApp: string;
   passwordApp: string;
- }
-const KEY_STORAGE = "@appmypass"
+};
+const KEY_STORAGE = "@appmypass";
 
 export function Home() {
-  const [data, setData] = useState<Data []>([])
+  const [data, setData] = useState<Data[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
 
-  async function getData(){
+  async function getData() {
     const response = await AsyncStorage.getItem(KEY_STORAGE);
-    const data = response ? JSON.parse(response) : {}
+    const data = response ? JSON.parse(response) : [];
 
-    setData([data])
+    setData(data);
   }
 
-  useEffect(() =>{
-    getData()
-  }, [])
+  useEffect(() => {
+    getData();
+  }, [data]);
 
   return (
     <View style={styles.container}>
@@ -41,12 +41,13 @@ export function Home() {
           <Button title="Nova" onPress={() => setModalVisible(true)} />
         </View>
       </View>
-      <Modal
-      isVisible={modalVisible}
-      onClose={() => setModalVisible(false)}
-      />
-      <Text>{data.map(item => item.nameApp)}</Text>
-      <Text>{data.map(item => item.passwordApp)}</Text>
+      <Modal isVisible={modalVisible} onClose={() => setModalVisible(false)} />
+      {data.map((item) =>
+      <View key={item.id}>
+        <Text>{item.nameApp}</Text>
+        <Text>{item.passwordApp}</Text>
+      </View>)
+      }
     </View>
   );
 }

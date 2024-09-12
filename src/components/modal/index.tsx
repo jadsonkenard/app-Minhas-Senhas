@@ -16,7 +16,7 @@ type ModalProps = {
   onClose: () => void;
 };
 
-export function Modal({ isVisible, onClose}: ModalProps) {
+export function Modal({ isVisible, onClose }: ModalProps) {
   const [nameApp, setNameApp] = useState("");
   const [passwordApp, setPasswordApp] = useState("");
 
@@ -35,12 +35,9 @@ export function Modal({ isVisible, onClose}: ModalProps) {
       const data = [...previousData, newData];
 
       await AsyncStorage.setItem(KEY_STORAGE, JSON.stringify(data))
-      
-      
     } catch (error) {
       console.log(error)
     }
-
   }
 
   return (
@@ -69,7 +66,7 @@ const styles = StyleSheet.create({
   },
   content: {
     backgroundColor: theme.colors.primary,
-    height: RFPercentage(45),
+    height: RFPercentage(35),
     width: RFPercentage(40),
     borderRadius: 25,
     alignItems: "center",
@@ -82,6 +79,6 @@ const styles = StyleSheet.create({
     position: "absolute"
   },
   buttonSave: {
-    marginTop: 30
+    marginTop: 15
   }
 });

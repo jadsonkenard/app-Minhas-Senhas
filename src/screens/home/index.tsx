@@ -1,8 +1,8 @@
-import { View, Text, StyleSheet, Image, Alert } from "react-native";
+import { View, Text, StyleSheet, Image, Alert, ScrollView } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
 import user from "../../assets/user.png";
-import { Button } from "../../components";
+import { Button, Card } from "../../components";
 import { Modal } from "../../components";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -42,12 +42,15 @@ export function Home() {
         </View>
       </View>
       <Modal isVisible={modalVisible} onClose={() => setModalVisible(false)} />
-      {data.map((item) =>
-      <View key={item.id}>
-        <Text>{item.nameApp}</Text>
-        <Text>{item.passwordApp}</Text>
-      </View>)
-      }
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {data.map((item) => (
+          <Card
+            key={item.id}
+            nameApp={item.nameApp}
+            passwordApp={item.passwordApp}
+          />
+        ))}
+      </ScrollView>
     </View>
   );
 }
@@ -55,6 +58,7 @@ export function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center",
   },
   header: {
     height: RFPercentage(18),

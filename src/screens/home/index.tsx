@@ -29,7 +29,7 @@ export function Home() {
     setData(data);
   }
 
-  function showInfo(id: string) {
+  async function showInfo(id: string) {
     const info = data.filter((item) => item.id == id)
 
     console.log(info)
@@ -38,8 +38,17 @@ export function Home() {
   }
 
   useEffect(() => {
-    getData();
-  }, [data]);
+    getData()
+  }, [data])
+
+  async function handleRemove(id: string){
+    const response = await AsyncStorage.getItem(KEY_STORAGE);
+    const previousData = response ? JSON.parse(response) : [];
+
+    const newData = previousData.filter((item: Data) => item.id !== id);
+    await AsyncStorage.setItem(KEY_STORAGE, JSON.stringify(newData))
+    getData()
+  }
 
   return (
     <View style={styles.container}>
@@ -61,13 +70,12 @@ export function Home() {
         passwordApp={info.map(item => item.passwordApp)}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-        {data.map((item, index) => (
+        {data.map((item) => (
           <Card
             key={item.id}
             nameApp={item.nameApp}
             onPress={() => showInfo(item.id)}
           />
-          
         ))}
       </ScrollView>
     </View>
@@ -108,7 +116,7 @@ const styles = StyleSheet.create({
     marginHorizontal: RFPercentage(2),
   },
   yourPass: {
-    fontFamily: theme.fonts.regular,
+    fontFamily: theme.fonts.bold,
     color: theme.colors.primaryWhite,
     fontSize: 22,
   },

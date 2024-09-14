@@ -1,18 +1,23 @@
-import { View, Text, StyleSheet } from "react-native";
+import {
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  TouchableOpacityProps,
+} from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
 
-type CardProps = {
+type CardProps = TouchableOpacityProps & {
   nameApp: string;
   passwordApp: string;
 };
 
-export function Card({ nameApp, passwordApp }: CardProps) {
+export function Card({ nameApp, passwordApp, ...props }: CardProps) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} {...props}>
       <Text style={styles.nameApp}>{nameApp}</Text>
-      <Text style={styles.passwordApp}>{passwordApp}</Text>
-    </View>
+      <Text style={styles.passwordApp}>••••••••••••••</Text>
+    </TouchableOpacity>
   );
 }
 
@@ -22,16 +27,17 @@ const styles = StyleSheet.create({
     height: RFPercentage(10),
     width: RFPercentage(45),
     marginTop: 8,
-    justifyContent: "center"
+    justifyContent: "center",
+    borderRadius: 8,
   },
   nameApp: {
     fontFamily: theme.fonts.bold,
-    fontSize: 18,
-    marginLeft: RFPercentage(2)
+    fontSize: 22,
+    marginLeft: RFPercentage(2),
   },
   passwordApp: {
     fontFamily: theme.fonts.regular,
-    fontSize: 18,
-    marginLeft: RFPercentage(2)
+    fontSize: 25,
+    marginLeft: RFPercentage(2),
   },
 });

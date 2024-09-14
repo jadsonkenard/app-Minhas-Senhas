@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet, Image, Alert, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
 import user from "../../assets/user.png";
 import { Button, Card } from "../../components";
 import { Modal } from "../../components";
+import { ModalInfo } from "../../components";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -12,11 +13,14 @@ type Data = {
   nameApp: string;
   passwordApp: string;
 };
+
 const KEY_STORAGE = "@appmypass";
 
 export function Home() {
   const [data, setData] = useState<Data[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalInfoVisible, setModalInfoVisible] = useState(false);
+  const [info, setInfo] = useState<Data []>([]);
 
   async function getData() {
     const response = await AsyncStorage.getItem(KEY_STORAGE);
@@ -24,6 +28,15 @@ export function Home() {
 
     setData(data);
   }
+
+  function showInfo(id: string) {
+    const info = data.filter((item) => item.id == id)
+
+    setInfo(info)
+    setModalInfoVisible(true)
+  }
+
+
 
   useEffect(() => {
     getData();
@@ -42,12 +55,19 @@ export function Home() {
         </View>
       </View>
       <Modal isVisible={modalVisible} onClose={() => setModalVisible(false)} />
+      <ModalInfo
+        isVisible={modalInfoVisible}
+        copyPass={() => setModalInfoVisible(false)}
+        nameApp={info[0].nameApp}
+        passwordApp={info[0].passwordApp}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
-        {data.map((item) => (
+        {data.map((item, index) => (
           <Card
             key={item.id}
             nameApp={item.nameApp}
             passwordApp={item.passwordApp}
+            onPress={() => showInfo(item.id)}
           />
         ))}
       </ScrollView>

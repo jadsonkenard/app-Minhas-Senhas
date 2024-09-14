@@ -22,8 +22,8 @@ export function Button({ title, ...props }: ButtonProps) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.green80,
-    height: RFPercentage(4),
-    width: RFPercentage(10),
+    height: RFPercentage(5),
+    width: RFPercentage(11),
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center"

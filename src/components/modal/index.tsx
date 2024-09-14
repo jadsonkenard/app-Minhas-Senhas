@@ -1,15 +1,21 @@
 import { useState } from "react";
-import { Alert, Modal as ModalApp, StyleSheet, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Modal as ModalApp,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { theme } from "../../theme";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Button } from "../button";
 import { Input } from "../input";
 import Feather from "@expo/vector-icons/Feather";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import 'react-native-get-random-values';
-import { v4 as uuid } from 'uuid';
+import "react-native-get-random-values";
+import { v4 as uuid } from "uuid";
 
-const KEY_STORAGE = "@appmypass"
+const KEY_STORAGE = "@appmypass";
 
 type ModalProps = {
   isVisible: boolean;
@@ -20,23 +26,38 @@ export function Modal({ isVisible, onClose }: ModalProps) {
   const [nameApp, setNameApp] = useState("");
   const [passwordApp, setPasswordApp] = useState("");
 
-  async function saveData(){
+  function formValidator(){
+    if(nameApp == ""){
+      Alert.alert("O nome do App é obrigatório")
+      return
+    }
+    if(passwordApp == ""){
+      Alert.alert("O senha do App é obrigatório")
+      return
+    }
+    saveData()
+  }
+
+  async function saveData() {
+
     try {
       const id = uuid();
       const newData = {
         id,
         nameApp,
-        passwordApp
-      }
+        passwordApp,
+      };
 
       const response = await AsyncStorage.getItem(KEY_STORAGE);
       const previousData = response ? JSON.parse(response) : [];
 
       const data = [...previousData, newData];
 
-      await AsyncStorage.setItem(KEY_STORAGE, JSON.stringify(data))
+      await AsyncStorage.setItem(KEY_STORAGE, JSON.stringify(data));
+      setNameApp("")
+      setPasswordApp("")
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
@@ -47,10 +68,20 @@ export function Modal({ isVisible, onClose }: ModalProps) {
           <TouchableOpacity style={styles.closeButton} onPress={onClose}>
             <Feather name="x-square" size={32} color={theme.colors.green80} />
           </TouchableOpacity>
-          <Input icon="heart" placeholder="Nome do App" onChangeText={setNameApp}/>
-          <Input icon="lock" placeholder="Senha" onChangeText={setPasswordApp}/>
+          <Input
+            icon="heart"
+            value={nameApp}
+            placeholder="Nome do App"
+            onChangeText={setNameApp}
+          />
+          <Input
+            icon="lock"
+            value={passwordApp}
+            placeholder="Senha"
+            onChangeText={setPasswordApp}
+          />
           <View style={styles.buttonSave}>
-          <Button title="Salvar" onPress={saveData}/>
+            <Button title="Salvar" onPress={formValidator} />
           </View>
         </View>
       </View>
@@ -71,14 +102,14 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     alignItems: "center",
     justifyContent: "center",
-    elevation: 10
+    elevation: 10,
   },
   closeButton: {
     top: 16,
     right: 16,
-    position: "absolute"
+    position: "absolute",
   },
   buttonSave: {
-    marginTop: 15
-  }
+    marginTop: 15,
+  },
 });

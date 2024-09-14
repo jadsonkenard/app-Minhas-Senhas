@@ -32,7 +32,6 @@ view: {
     marginVertical: RFPercentage(1),
     alignItems: "center",
     justifyContent: "center",
-    // backgroundColor: "red"
 },
   container: {
     borderWidth: 1,

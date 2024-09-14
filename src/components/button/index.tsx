@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
     width: RFPercentage(11),
     borderRadius: 10,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    marginHorizontal: RFPercentage(1)
   },
   title: {
     fontFamily: theme.fonts.regular,

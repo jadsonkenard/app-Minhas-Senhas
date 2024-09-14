@@ -7,6 +7,7 @@ import { Button } from "../button";
 type ModalInfoProps = {
   isVisible: boolean;
   copyPass: () => void;
+  removePass: () => void;
   nameApp: string[];
   passwordApp: string[];
 };
@@ -14,6 +15,7 @@ type ModalInfoProps = {
 export function ModalInfo({
   isVisible,
   copyPass,
+  removePass,
   nameApp,
   passwordApp,
 }: ModalInfoProps) {
@@ -25,7 +27,10 @@ export function ModalInfo({
           <View style={styles.viewPass}>
             <Text style={styles.passwordApp}>{passwordApp}</Text>
           </View>
-          <Button title="Copiar" onPress={copyPass}/>
+          <View style={styles.buttons}>
+            <Button title="Copiar" onPress={copyPass} />
+            <Button title="Apagar" onPress={removePass}/>
+          </View>
         </View>
       </View>
     </Modal>
@@ -41,16 +46,10 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: theme.colors.primary,
     height: RFPercentage(22),
-    width: RFPercentage(40),
+    width: RFPercentage(45),
     borderRadius: 25,
     alignItems: "center",
-    justifyContent: "center",
     elevation: 10,
-  },
-  closeButton: {
-    top: 16,
-    right: 16,
-    position: "absolute",
   },
   nameApp: {
     fontFamily: theme.fonts.bold,
@@ -64,10 +63,13 @@ const styles = StyleSheet.create({
     marginVertical: RFPercentage(2),
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 25
+    borderRadius: 25,
   },
   passwordApp: {
     fontFamily: theme.fonts.regular,
-    fontSize: 22
+    fontSize: 22,
+  },
+  buttons: {
+    flexDirection: "row",
   },
 });

@@ -30,24 +30,25 @@ export function Home() {
   }
 
   async function showInfo(id: string) {
-    const info = data.filter((item) => item.id == id)
+    const info = data.filter((item) => item.id == id);
 
-    console.log(info)
-    setInfo(info)
-    setModalInfoVisible(true)
+    console.log(info);
+    setInfo(info);
+    setModalInfoVisible(true);
   }
 
   useEffect(() => {
-    getData()
-  }, [data])
+    getData();
+  }, [data]);
 
-  async function handleRemove(id: string){
+  async function handleRemove(id: string) {
     const response = await AsyncStorage.getItem(KEY_STORAGE);
     const previousData = response ? JSON.parse(response) : [];
 
     const newData = previousData.filter((item: Data) => item.id !== id);
-    await AsyncStorage.setItem(KEY_STORAGE, JSON.stringify(newData))
-    getData()
+    await AsyncStorage.setItem(KEY_STORAGE, JSON.stringify(newData));
+    getData();
+    setModalInfoVisible(false)
   }
 
   return (
@@ -66,8 +67,9 @@ export function Home() {
       <ModalInfo
         isVisible={modalInfoVisible}
         copyPass={() => setModalInfoVisible(false)}
-        nameApp={info.map(item => item.nameApp)}
-        passwordApp={info.map(item => item.passwordApp)}
+        removePass={() => handleRemove(info[0].id)}
+        nameApp={info.map((item) => item.nameApp)}
+        passwordApp={info.map((item) => item.passwordApp)}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         {data.map((item) => (

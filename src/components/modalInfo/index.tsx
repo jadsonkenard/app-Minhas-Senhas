@@ -7,8 +7,8 @@ import { Button } from "../button";
 type ModalInfoProps = {
   isVisible: boolean;
   copyPass: () => void;
-  nameApp: any;
-  passwordApp: any;
+  nameApp: string[];
+  passwordApp: string[];
 };
 
 export function ModalInfo({
@@ -53,13 +53,13 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   nameApp: {
-    fontFamily: theme.fonts.regular,
+    fontFamily: theme.fonts.bold,
     fontSize: 22,
-    color: theme.colors.green80,
+    color: theme.colors.gray,
   },
   viewPass: {
     backgroundColor: theme.colors.gray,
-    height: RFPercentage(5),
+    height: RFPercentage(4),
     width: RFPercentage(30),
     marginVertical: RFPercentage(2),
     alignItems: "center",

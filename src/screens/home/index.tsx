@@ -20,7 +20,7 @@ export function Home() {
   const [data, setData] = useState<Data[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalInfoVisible, setModalInfoVisible] = useState(false);
-  const [info, setInfo] = useState<Data []>([]);
+  const [info, setInfo] = useState<Data[]>([]);
 
   async function getData() {
     const response = await AsyncStorage.getItem(KEY_STORAGE);
@@ -32,11 +32,10 @@ export function Home() {
   function showInfo(id: string) {
     const info = data.filter((item) => item.id == id)
 
+    console.log(info)
     setInfo(info)
     setModalInfoVisible(true)
   }
-
-
 
   useEffect(() => {
     getData();
@@ -58,17 +57,17 @@ export function Home() {
       <ModalInfo
         isVisible={modalInfoVisible}
         copyPass={() => setModalInfoVisible(false)}
-        nameApp={info[0].nameApp}
-        passwordApp={info[0].passwordApp}
+        nameApp={info.map(item => item.nameApp)}
+        passwordApp={info.map(item => item.passwordApp)}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         {data.map((item, index) => (
           <Card
             key={item.id}
             nameApp={item.nameApp}
-            passwordApp={item.passwordApp}
             onPress={() => showInfo(item.id)}
           />
+          
         ))}
       </ScrollView>
     </View>

@@ -9,10 +9,9 @@ import { theme } from "../../theme";
 
 type CardProps = TouchableOpacityProps & {
   nameApp: string;
-  passwordApp: string;
 };
 
-export function Card({ nameApp, passwordApp, ...props }: CardProps) {
+export function Card({ nameApp, ...props }: CardProps) {
   return (
     <TouchableOpacity style={styles.container} {...props}>
       <Text style={styles.nameApp}>{nameApp}</Text>
@@ -24,7 +23,7 @@ export function Card({ nameApp, passwordApp, ...props }: CardProps) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.gray80,
-    height: RFPercentage(10),
+    height: RFPercentage(12),
     width: RFPercentage(45),
     marginTop: 8,
     justifyContent: "center",

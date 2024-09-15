@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
   },
   viewPass: {
     backgroundColor: theme.colors.gray,
-    height: RFPercentage(4),
-    width: RFPercentage(30),
+    height: RFPercentage(5),
+    width: RFPercentage(40),
     marginVertical: RFPercentage(2),
     alignItems: "center",
     justifyContent: "center",

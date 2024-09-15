@@ -43,7 +43,6 @@ export function Modal({ isVisible, onClose }: ModalProps) {
     saveData()
   }
 
-
   async function saveData() {
 
     try {
@@ -65,6 +64,18 @@ export function Modal({ isVisible, onClose }: ModalProps) {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  function getPassword() {
+    let chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJLMNOPQRSTUVWXYZ!@#$%^&*()+?><:{}[]";
+    let passwordLength = 16;
+    let password = "";
+
+    for (let i = 0; i < passwordLength; i++) {
+      let randomNumber = Math.floor(Math.random() * chars.length);
+      password += chars.substring(randomNumber, randomNumber + 1);
+    }
+    setPasswordApp(password)
   }
 
   return (
@@ -90,8 +101,9 @@ export function Modal({ isVisible, onClose }: ModalProps) {
             onChangeText={setPasswordApp}
           />
           <Text style={styles.errorMessage}>{errorPass ? errorPass : noError}</Text>
-          <View style={styles.buttonSave}>
+          <View style={styles.buttons}>
             <Button title="Salvar" onPress={formValidator} />
+            <Button title="Gerar" onPress={getPassword} />
           </View>
         </View>
       </View>
@@ -119,7 +131,8 @@ const styles = StyleSheet.create({
     right: 16,
     position: "absolute",
   },
-  buttonSave: {
+  buttons: {
+    flexDirection: "row",
     marginTop: 15,
   },
   errorMessage: {

@@ -1,7 +1,6 @@
-import { Modal, View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Modal, View, Text, StyleSheet } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
-import Feather from "@expo/vector-icons/Feather";
 import { Button } from "../button";
 
 type ModalInfoProps = {
@@ -45,10 +44,11 @@ const styles = StyleSheet.create({
   },
   content: {
     backgroundColor: theme.colors.primary,
-    height: RFPercentage(22),
+    height: RFPercentage(28),
     width: RFPercentage(45),
     borderRadius: 25,
     alignItems: "center",
+    justifyContent: "center",
     elevation: 10,
   },
   nameApp: {

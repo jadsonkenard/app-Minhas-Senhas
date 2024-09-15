@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Alert,
   Modal as ModalApp,
   StyleSheet,
   TouchableOpacity,
   View,
+  Text
 } from "react-native";
 import { theme } from "../../theme";
 import { RFPercentage } from "react-native-responsive-fontsize";
@@ -25,18 +26,23 @@ type ModalProps = {
 export function Modal({ isVisible, onClose }: ModalProps) {
   const [nameApp, setNameApp] = useState("");
   const [passwordApp, setPasswordApp] = useState("");
+  const [errorName, setErrorName] = useState("");
+  const [errorPass, setErrorPass] = useState("");
+
+  let noError = <Text style={styles.noError}> </Text>
 
   function formValidator(){
     if(nameApp == ""){
-      Alert.alert("O nome do App é obrigatório")
+      setErrorName("O nome do App é obrigatório")
       return
     }
     if(passwordApp == ""){
-      Alert.alert("O senha do App é obrigatório")
+      setErrorPass("O senha do App é obrigatório")
       return
     }
     saveData()
   }
+
 
   async function saveData() {
 
@@ -72,14 +78,18 @@ export function Modal({ isVisible, onClose }: ModalProps) {
             icon="heart"
             value={nameApp}
             placeholder="Nome do App"
+            onChange={() => setErrorName("")}
             onChangeText={setNameApp}
           />
+          <Text style={styles.errorMessage}>{errorName ? errorName : noError}</Text>
           <Input
             icon="lock"
             value={passwordApp}
             placeholder="Senha"
+            onChange={() => setErrorPass("")}
             onChangeText={setPasswordApp}
           />
+          <Text style={styles.errorMessage}>{errorPass ? errorPass : noError}</Text>
           <View style={styles.buttonSave}>
             <Button title="Salvar" onPress={formValidator} />
           </View>
@@ -97,7 +107,7 @@ const styles = StyleSheet.create({
   },
   content: {
     backgroundColor: theme.colors.primary,
-    height: RFPercentage(35),
+    height: RFPercentage(40),
     width: RFPercentage(40),
     borderRadius: 25,
     alignItems: "center",
@@ -112,4 +122,12 @@ const styles = StyleSheet.create({
   buttonSave: {
     marginTop: 15,
   },
+  errorMessage: {
+    fontFamily: theme.fonts.regular,
+    fontSize: 14,
+    color: "red",
+  },
+  noError: {
+    fontSize: 14
+  }
 });

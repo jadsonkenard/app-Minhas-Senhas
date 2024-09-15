@@ -29,7 +29,7 @@ view: {
     flexDirection: "row",
     height: RFPercentage(6),
     width: "100%",
-    marginVertical: RFPercentage(1),
+    marginTop: RFPercentage(1),
     alignItems: "center",
     justifyContent: "center",
 },

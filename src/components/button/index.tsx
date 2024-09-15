@@ -24,14 +24,14 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.green80,
     height: RFPercentage(5),
     width: RFPercentage(11),
-    borderRadius: 10,
+    borderRadius: 6,
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: RFPercentage(1)
+    marginHorizontal: RFPercentage(1),
   },
   title: {
-    fontFamily: theme.fonts.regular,
-    color: theme.colors.primary, 
-    fontSize: 20
-  }
+    fontFamily: theme.fonts.bold,
+    color: theme.colors.primary,
+    fontSize: 20,
+  },
 });

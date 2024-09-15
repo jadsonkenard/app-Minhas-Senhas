@@ -5,7 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
-  Text
+  Text,
 } from "react-native";
 import { theme } from "../../theme";
 import { RFPercentage } from "react-native-responsive-fontsize";
@@ -29,22 +29,21 @@ export function Modal({ isVisible, onClose }: ModalProps) {
   const [errorName, setErrorName] = useState("");
   const [errorPass, setErrorPass] = useState("");
 
-  let noError = <Text style={styles.noError}> </Text>
+  let noError = <Text style={styles.noError}> </Text>;
 
-  function formValidator(){
-    if(nameApp == ""){
-      setErrorName("O nome do App é obrigatório")
-      return
+  function formValidator() {
+    if (nameApp == "") {
+      setErrorName("O nome do App é obrigatório");
+      return;
     }
-    if(passwordApp == ""){
-      setErrorPass("O senha do App é obrigatório")
-      return
+    if (passwordApp == "") {
+      setErrorPass("O senha do App é obrigatório");
+      return;
     }
-    saveData()
+    saveData();
   }
 
   async function saveData() {
-
     try {
       const id = uuid();
       const newData = {
@@ -59,32 +58,33 @@ export function Modal({ isVisible, onClose }: ModalProps) {
       const data = [...previousData, newData];
 
       await AsyncStorage.setItem(KEY_STORAGE, JSON.stringify(data));
-      setNameApp("")
-      setPasswordApp("")
+      setNameApp("");
+      setPasswordApp("");
     } catch (error) {
       console.log(error);
     }
   }
 
   function getPassword() {
-    let chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJLMNOPQRSTUVWXYZ!@#$%^&*()+?><:{}[]";
-    let passwordLength = 16;
+    let chars =
+      "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJLMNOPQRSTUVWXYZ@*";
+    let passwordLength = 10;
     let password = "";
 
     for (let i = 0; i < passwordLength; i++) {
       let randomNumber = Math.floor(Math.random() * chars.length);
       password += chars.substring(randomNumber, randomNumber + 1);
     }
-    setPasswordApp(password)
+    setPasswordApp(password);
   }
 
   return (
-    <ModalApp visible={isVisible} transparent animationType="slide">
+    <ModalApp visible={isVisible} animationType="slide">
       <View style={styles.container}>
+        <View style={styles.closeButton}>
+          <Button title="Fechar" onPress={onClose} />
+        </View>
         <View style={styles.content}>
-          <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-            <Feather name="x-square" size={32} color={theme.colors.green80} />
-          </TouchableOpacity>
           <Input
             icon="heart"
             value={nameApp}
@@ -92,7 +92,9 @@ export function Modal({ isVisible, onClose }: ModalProps) {
             onChange={() => setErrorName("")}
             onChangeText={setNameApp}
           />
-          <Text style={styles.errorMessage}>{errorName ? errorName : noError}</Text>
+          <Text style={styles.errorMessage}>
+            {errorName ? errorName : noError}
+          </Text>
           <Input
             icon="lock"
             value={passwordApp}
@@ -100,7 +102,9 @@ export function Modal({ isVisible, onClose }: ModalProps) {
             onChange={() => setErrorPass("")}
             onChangeText={setPasswordApp}
           />
-          <Text style={styles.errorMessage}>{errorPass ? errorPass : noError}</Text>
+          <Text style={styles.errorMessage}>
+            {errorPass ? errorPass : noError}
+          </Text>
           <View style={styles.buttons}>
             <Button title="Salvar" onPress={formValidator} />
             <Button title="Gerar" onPress={getPassword} />
@@ -121,15 +125,13 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.primary,
     height: RFPercentage(40),
     width: RFPercentage(40),
-    borderRadius: 25,
+    borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
     elevation: 10,
   },
   closeButton: {
-    top: 16,
-    right: 16,
-    position: "absolute",
+    marginBottom: RFPercentage(1),
   },
   buttons: {
     flexDirection: "row",
@@ -141,6 +143,6 @@ const styles = StyleSheet.create({
     color: "red",
   },
   noError: {
-    fontSize: 14
-  }
+    fontSize: 14,
+  },
 });

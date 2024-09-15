@@ -16,26 +16,34 @@ type InputProps = TextInputProps & {
 export function Input({ icon, ...props }: InputProps) {
   return (
     <View style={styles.view}>
-      <TextInput style={styles.container} {...props} placeholderTextColor={theme.colors.gray}/>
-
-      <Feather style={styles.icon} name={icon} size={20} color={theme.colors.gray} />
-
+      <TextInput
+        style={styles.container}
+        {...props}
+        placeholderTextColor={theme.colors.gray}
+      />
+      <Feather
+        style={styles.icon}
+        name={icon}
+        size={20}
+        color={theme.colors.gray}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-view: {
+  view: {
     flexDirection: "row",
-    height: RFPercentage(6),
+    height: RFPercentage(7),
     width: "100%",
-    marginTop: RFPercentage(1),
+    marginTop: RFPercentage(0.5),
     alignItems: "center",
     justifyContent: "center",
-},
+  },
   container: {
-    borderWidth: 1,
+    fontFamily: theme.fonts.bold,
     borderColor: theme.colors.gray,
+    borderWidth: 1,
     borderRadius: 10,
     height: "100%",
     width: "80%",
@@ -46,6 +54,6 @@ view: {
   },
   icon: {
     position: "absolute",
-    left: RFPercentage(5)
-  }
+    left: RFPercentage(5),
+  },
 });

@@ -19,7 +19,7 @@ export function ModalInfo({
   passwordApp,
 }: ModalInfoProps) {
   return (
-    <Modal visible={isVisible} transparent animationType="fade">
+    <Modal visible={isVisible} animationType="slide">
       <View style={styles.container}>
         <View style={styles.content}>
           <Text style={styles.nameApp}>{nameApp}</Text>
@@ -28,7 +28,7 @@ export function ModalInfo({
           </View>
           <View style={styles.buttons}>
             <Button title="Copiar" onPress={copyPass} />
-            <Button title="Apagar" onPress={removePass}/>
+            <Button title="Apagar" onPress={removePass} />
           </View>
         </View>
       </View>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.primary,
     height: RFPercentage(28),
     width: RFPercentage(45),
-    borderRadius: 25,
+    borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
     elevation: 10,

@@ -32,9 +32,8 @@ export function ModalInfo({
             />
           </View>
           <View style={styles.buttons}>
-            <Button title={"Voltar"} onPress={onClose} />
+            <Button title="Voltar" onPress={onClose} />
             <Button title="Apagar" onPress={removePass} />
-            <Button title={"Copiar"} />
           </View>
         </View>
       </View>

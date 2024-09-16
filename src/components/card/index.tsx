@@ -1,9 +1,4 @@
-import {
-  Text,
-  StyleSheet,
-  Pressable,
-  PressableProps
-} from "react-native";
+import { Text, StyleSheet, Pressable, PressableProps } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
 

@@ -22,7 +22,6 @@ export function Home() {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalInfoVisible, setModalInfoVisible] = useState(false);
   const [info, setInfo] = useState<Data[]>([]);
-  const [copyPass, setCopyPass] = useState("");
 
   async function getData() {
     const response = await AsyncStorage.getItem(KEY_STORAGE);

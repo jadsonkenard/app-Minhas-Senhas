@@ -1,22 +1,22 @@
 import {
-  TouchableOpacity,
   Text,
   StyleSheet,
-  TouchableOpacityProps,
+  Pressable,
+  PressableProps
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
 
-type CardProps = TouchableOpacityProps & {
+type CardProps = PressableProps & {
   nameApp: string;
 };
 
 export function Card({ nameApp, ...props }: CardProps) {
   return (
-    <TouchableOpacity style={styles.container} {...props}>
+    <Pressable style={styles.container} {...props}>
       <Text style={styles.nameApp}>{nameApp}</Text>
       <Text style={styles.passwordApp}>••••••••••••••</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 

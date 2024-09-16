@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView, Alert } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
 import user from "../../assets/user.png";
@@ -7,6 +7,7 @@ import { Modal } from "../../components";
 import { ModalInfo } from "../../components";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Clipboard from 'expo-clipboard';
 
 type Data = {
   id: string;
@@ -21,6 +22,7 @@ export function Home() {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalInfoVisible, setModalInfoVisible] = useState(false);
   const [info, setInfo] = useState<Data[]>([]);
+  const [copyPass, setCopyPass] = useState('');
 
   async function getData() {
     const response = await AsyncStorage.getItem(KEY_STORAGE);
@@ -50,6 +52,12 @@ export function Home() {
     setModalInfoVisible(false);
   }
 
+  function handleCopy(id: string){
+    const info = data.filter((item) => item.id == id).map((item) => item.passwordApp)
+    Clipboard.setStringAsync(info.toString())
+    Alert.alert("Senha copiada")
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -76,6 +84,7 @@ export function Home() {
             key={item.id}
             nameApp={item.nameApp}
             onPress={() => showInfo(item.id)}
+            onLongPress={() => handleCopy(item.id)}
           />
         ))}
       </ScrollView>

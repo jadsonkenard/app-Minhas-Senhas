@@ -7,7 +7,7 @@ import { Modal } from "../../components";
 import { ModalInfo } from "../../components";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Clipboard from 'expo-clipboard';
+import * as Clipboard from "expo-clipboard";
 
 type Data = {
   id: string;
@@ -22,7 +22,7 @@ export function Home() {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalInfoVisible, setModalInfoVisible] = useState(false);
   const [info, setInfo] = useState<Data[]>([]);
-  const [copyPass, setCopyPass] = useState('');
+  const [copyPass, setCopyPass] = useState("");
 
   async function getData() {
     const response = await AsyncStorage.getItem(KEY_STORAGE);
@@ -52,10 +52,12 @@ export function Home() {
     setModalInfoVisible(false);
   }
 
-  function handleCopy(id: string){
-    const info = data.filter((item) => item.id == id).map((item) => item.passwordApp)
-    Clipboard.setStringAsync(info.toString())
-    Alert.alert("Senha copiada")
+  function handleCopy(id: string) {
+    const info = data
+      .filter((item) => item.id == id)
+      .map((item) => item.passwordApp);
+    Clipboard.setStringAsync(info.toString());
+    Alert.alert("Senha copiada");
   }
 
   return (
@@ -78,16 +80,22 @@ export function Home() {
         nameApp={info.map((item) => item.nameApp)}
         passwordApp={info.map((item) => item.passwordApp)}
       />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {data.map((item) => (
-          <Card
-            key={item.id}
-            nameApp={item.nameApp}
-            onPress={() => showInfo(item.id)}
-            onLongPress={() => handleCopy(item.id)}
-          />
-        ))}
-      </ScrollView>
+      {data.length > 0 ? (
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {data.map((item) => (
+            <Card
+              key={item.id}
+              nameApp={item.nameApp}
+              onPress={() => showInfo(item.id)}
+              onLongPress={() => handleCopy(item.id)}
+            />
+          ))}
+        </ScrollView>
+      ) : (
+        <View style={styles.emptyContainer}>
+          <Text style={styles.emptyText}>Nenhuma senha salva.</Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -96,6 +104,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+  },
+  emptyContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  emptyText: {
+    fontFamily: theme.fonts.regular,
+    color: theme.colors.primary,
+    fontSize: 18
   },
   header: {
     height: RFPercentage(18),

@@ -36,7 +36,6 @@ export function Modal({ isVisible, onClose }: ModalProps) {
       return;
     }
     saveData();
-    setOnSucess("Senha salva com sucesso.")
   }
 
   async function saveData() {
@@ -57,7 +56,9 @@ export function Modal({ isVisible, onClose }: ModalProps) {
       await AsyncStorage.setItem(KEY_STORAGE, JSON.stringify(data));
       setNameApp("");
       setPasswordApp("");
-      setIsLoading(false)
+      setIsLoading(false);
+      setOnSucess("Senha salva com sucesso.");
+      setTimeout(() => {setOnSucess("")}, 3000)
     } catch (error) {
       console.log(error);
     }

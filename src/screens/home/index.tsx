@@ -65,7 +65,7 @@ export function Home() {
       <Modal isVisible={modalVisible} onClose={() => setModalVisible(false)} />
       <ModalInfo
         isVisible={modalInfoVisible}
-        copyPass={() => setModalInfoVisible(false)}
+        onClose={() => setModalInfoVisible(false)}
         removePass={() => handleRemove(info[0].id)}
         nameApp={info.map((item) => item.nameApp)}
         passwordApp={info.map((item) => item.passwordApp)}

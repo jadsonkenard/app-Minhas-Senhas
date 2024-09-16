@@ -18,7 +18,7 @@ export function Button({ title, isLoading = false, ...props }: ButtonProps) {
     <TouchableOpacity style={styles.container} {...props}>
       {
         isLoading ? (
-          <ActivityIndicator color="red"/>
+          <ActivityIndicator color={theme.colors.primary}/>
         ) : (
           <Text style={styles.title}>{title}</Text>
         )

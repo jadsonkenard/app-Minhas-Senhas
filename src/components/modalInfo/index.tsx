@@ -1,11 +1,12 @@
-import { Modal, View, Text, StyleSheet } from "react-native";
+import { Modal, View, Text, StyleSheet, TextInput } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
 import { Button } from "../button";
+import { useState } from "react";
 
 type ModalInfoProps = {
   isVisible: boolean;
-  copyPass: () => void;
+  onClose: () => void;
   removePass: () => void;
   nameApp: string[];
   passwordApp: string[];
@@ -13,22 +14,29 @@ type ModalInfoProps = {
 
 export function ModalInfo({
   isVisible,
-  copyPass,
+  onClose,
   removePass,
   nameApp,
   passwordApp,
 }: ModalInfoProps) {
+  const [seePassword, setSeePassword] = useState(true);
+
   return (
     <Modal visible={isVisible} animationType="slide">
       <View style={styles.container}>
         <View style={styles.content}>
           <Text style={styles.nameApp}>{nameApp}</Text>
           <View style={styles.viewPass}>
-            <Text style={styles.passwordApp}>{passwordApp}</Text>
+            <TextInput
+              style={styles.inputPass}
+              value={passwordApp[0]}
+              secureTextEntry={seePassword}
+            />
+            <Button title={seePassword == false ? "Ocultar" : "Ver"} onPress={() => setSeePassword(!seePassword)} />
           </View>
           <View style={styles.buttons}>
-            <Button title="Copiar" onPress={copyPass} />
-            <Button title="Apagar" onPress={removePass}/>
+            <Button title={"Voltar"} onPress={onClose} />
+            <Button title="Apagar" onPress={removePass} />
           </View>
         </View>
       </View>
@@ -44,7 +52,7 @@ const styles = StyleSheet.create({
   },
   content: {
     backgroundColor: theme.colors.primary,
-    height: RFPercentage(28),
+    height: RFPercentage(25),
     width: RFPercentage(45),
     borderRadius: 10,
     alignItems: "center",
@@ -57,19 +65,24 @@ const styles = StyleSheet.create({
     color: theme.colors.gray,
   },
   viewPass: {
-    backgroundColor: theme.colors.gray,
     height: RFPercentage(5),
-    width: RFPercentage(40),
-    marginVertical: RFPercentage(2),
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 25,
+    flexDirection: "row",
+  },
+  inputPass: {
+    fontFamily: theme.fonts.bold,
+    fontSize: 18,
+    backgroundColor: theme.colors.gray,
+    height: "100%",
+    width: "60%",
+    paddingHorizontal: 10,
+    borderRadius: 6,
   },
   passwordApp: {
     fontFamily: theme.fonts.regular,
     fontSize: 22,
   },
   buttons: {
+    marginTop: 14,
     flexDirection: "row",
   },
 });

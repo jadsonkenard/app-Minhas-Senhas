@@ -28,7 +28,7 @@ export function ModalInfo({
           </View>
           <View style={styles.buttons}>
             <Button title="Copiar" onPress={copyPass} />
-            <Button title="Apagar" onPress={removePass} />
+            <Button title="Apagar" onPress={removePass}/>
           </View>
         </View>
       </View>

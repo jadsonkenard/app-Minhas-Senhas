@@ -1,17 +1,9 @@
-import { useEffect, useState } from "react";
-import {
-  Alert,
-  Modal as ModalApp,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Text,
-} from "react-native";
+import { useState } from "react";
+import { Modal as ModalApp, StyleSheet, View, Text } from "react-native";
 import { theme } from "../../theme";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Button } from "../button";
 import { Input } from "../input";
-import Feather from "@expo/vector-icons/Feather";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import "react-native-get-random-values";
 import { v4 as uuid } from "uuid";
@@ -28,8 +20,11 @@ export function Modal({ isVisible, onClose }: ModalProps) {
   const [passwordApp, setPasswordApp] = useState("");
   const [errorName, setErrorName] = useState("");
   const [errorPass, setErrorPass] = useState("");
+  const [onSucess, setOnSucess] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   let noError = <Text style={styles.noError}> </Text>;
+  let sucess = <Text style={styles.sucess}> </Text>;
 
   function formValidator() {
     if (nameApp == "") {
@@ -41,9 +36,11 @@ export function Modal({ isVisible, onClose }: ModalProps) {
       return;
     }
     saveData();
+    setOnSucess("Senha salva com sucesso.")
   }
 
   async function saveData() {
+    setIsLoading(true)
     try {
       const id = uuid();
       const newData = {
@@ -60,6 +57,7 @@ export function Modal({ isVisible, onClose }: ModalProps) {
       await AsyncStorage.setItem(KEY_STORAGE, JSON.stringify(data));
       setNameApp("");
       setPasswordApp("");
+      setIsLoading(false)
     } catch (error) {
       console.log(error);
     }
@@ -76,6 +74,7 @@ export function Modal({ isVisible, onClose }: ModalProps) {
       password += chars.substring(randomNumber, randomNumber + 1);
     }
     setPasswordApp(password);
+    setErrorPass("");
   }
 
   return (
@@ -105,8 +104,11 @@ export function Modal({ isVisible, onClose }: ModalProps) {
           <Text style={styles.errorMessage}>
             {errorPass ? errorPass : noError}
           </Text>
+          <Text style={styles.sucess}>
+            {onSucess ? onSucess : sucess}
+          </Text>
           <View style={styles.buttons}>
-            <Button title="Salvar" onPress={formValidator} />
+            <Button title="Salvar" onPress={formValidator} isLoading={isLoading}/>
             <Button title="Gerar" onPress={getPassword} />
           </View>
         </View>
@@ -145,4 +147,8 @@ const styles = StyleSheet.create({
   noError: {
     fontSize: 14,
   },
+  sucess: {
+    fontSize: 14,
+    color: theme.colors.green80
+  }
 });

@@ -32,7 +32,6 @@ export function Home() {
   async function showInfo(id: string) {
     const info = data.filter((item) => item.id == id);
 
-    console.log(info);
     setInfo(info);
     setModalInfoVisible(true);
   }
@@ -48,7 +47,7 @@ export function Home() {
     const newData = previousData.filter((item: Data) => item.id !== id);
     await AsyncStorage.setItem(KEY_STORAGE, JSON.stringify(newData));
     getData();
-    setModalInfoVisible(false)
+    setModalInfoVisible(false);
   }
 
   return (

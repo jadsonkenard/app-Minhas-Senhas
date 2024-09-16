@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.bold,
     borderColor: theme.colors.gray,
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 8,
     height: "100%",
     width: "80%",
     paddingLeft: RFPercentage(5),

@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.gray80,
     height: RFPercentage(12),
-    width: RFPercentage(45),
+    width: RFPercentage(48),
     marginTop: 8,
     justifyContent: "center",
     borderRadius: 8,

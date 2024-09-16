@@ -3,18 +3,26 @@ import {
   TouchableOpacityProps,
   Text,
   StyleSheet,
+  ActivityIndicator
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
 
 type ButtonProps = TouchableOpacityProps & {
   title: string;
+  isLoading?: boolean
 };
 
-export function Button({ title, ...props }: ButtonProps) {
+export function Button({ title, isLoading = false, ...props }: ButtonProps) {
   return (
     <TouchableOpacity style={styles.container} {...props}>
-      <Text style={styles.title}>{title}</Text>
+      {
+        isLoading ? (
+          <ActivityIndicator color="red"/>
+        ) : (
+          <Text style={styles.title}>{title}</Text>
+        )
+      }
     </TouchableOpacity>
   );
 }

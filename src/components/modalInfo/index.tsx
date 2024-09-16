@@ -2,7 +2,7 @@ import { Modal, View, Text, StyleSheet, TextInput } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
 import { Button } from "../button";
-import { useState } from "react";
+
 
 type ModalInfoProps = {
   isVisible: boolean;
@@ -19,7 +19,6 @@ export function ModalInfo({
   nameApp,
   passwordApp,
 }: ModalInfoProps) {
-  const [seePassword, setSeePassword] = useState(true);
 
   return (
     <Modal visible={isVisible} animationType="slide">
@@ -30,13 +29,12 @@ export function ModalInfo({
             <TextInput
               style={styles.inputPass}
               value={passwordApp[0]}
-              secureTextEntry={seePassword}
             />
-            <Button title={seePassword == false ? "Ocultar" : "Ver"} onPress={() => setSeePassword(!seePassword)} />
           </View>
           <View style={styles.buttons}>
             <Button title={"Voltar"} onPress={onClose} />
             <Button title="Apagar" onPress={removePass} />
+            <Button title={"Copiar"} />
           </View>
         </View>
       </View>
@@ -66,14 +64,13 @@ const styles = StyleSheet.create({
   },
   viewPass: {
     height: RFPercentage(5),
-    flexDirection: "row",
   },
   inputPass: {
     fontFamily: theme.fonts.bold,
     fontSize: 18,
     backgroundColor: theme.colors.gray,
     height: "100%",
-    width: "60%",
+    width: RFPercentage(37),
     paddingHorizontal: 10,
     borderRadius: 6,
   },

@@ -24,7 +24,7 @@ export function Modal({ isVisible, onClose }: ModalProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   let noError = <Text style={styles.noError}> </Text>;
-  let sucess = <Text style={styles.sucess}> </Text>;
+  let sucess = <Text style={styles.sucess}>Clique em gerar para obter uma senha forte</Text>;
 
   function formValidator() {
     if (nameApp == "") {

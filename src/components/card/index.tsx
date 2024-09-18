@@ -8,7 +8,7 @@ type CardProps = PressableProps & {
 
 export function Card({ nameApp, ...props }: CardProps) {
   return (
-    <Pressable style={styles.container} {...props}>
+    <Pressable style={({pressed}) => [{opacity: pressed ? 0.5 : 1}, styles.container]} {...props}>
       <Text style={styles.nameApp}>{nameApp}</Text>
       <Text style={styles.passwordApp}>••••••••••••••</Text>
     </Pressable>
@@ -18,7 +18,7 @@ export function Card({ nameApp, ...props }: CardProps) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.gray80,
-    height: RFPercentage(12),
+    height: RFPercentage(8),
     width: RFPercentage(48),
     marginTop: 8,
     justifyContent: "center",

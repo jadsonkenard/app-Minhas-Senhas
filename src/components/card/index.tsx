@@ -8,7 +8,13 @@ type CardProps = PressableProps & {
 
 export function Card({ nameApp, ...props }: CardProps) {
   return (
-    <Pressable style={({pressed}) => [{opacity: pressed ? 0.5 : 1}, styles.container]} {...props}>
+    <Pressable
+      style={({ pressed }) => [
+        { opacity: pressed ? 0.3 : 1},
+        styles.container,
+      ]}
+      {...props}
+    >
       <Text style={styles.nameApp}>{nameApp}</Text>
       <Text style={styles.passwordApp}>••••••••••••••</Text>
     </Pressable>

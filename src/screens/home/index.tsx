@@ -41,6 +41,17 @@ export function Home() {
     getData();
   }, [data]);
 
+function confirmRemove(id: string){
+  Alert.alert(
+    "Deletar senha",
+    "Deseja realmente deletar esta senha?",
+    [
+      {text: "Cancelar", onPress: () => {}},
+      {text: "Sim", onPress: () => handleRemove(id)}
+    ]
+  )
+}
+
   async function handleRemove(id: string) {
     const response = await AsyncStorage.getItem(KEY_STORAGE);
     const previousData = response ? JSON.parse(response) : [];
@@ -75,7 +86,7 @@ export function Home() {
       <ModalInfo
         isVisible={modalInfoVisible}
         onClose={() => setModalInfoVisible(false)}
-        removePass={() => handleRemove(info[0].id)}
+        removePass={() =>confirmRemove(info[0].id)}
         nameApp={info.map((item) => item.nameApp)}
         passwordApp={info.map((item) => item.passwordApp)}
       />

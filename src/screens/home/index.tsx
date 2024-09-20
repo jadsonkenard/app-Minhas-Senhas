@@ -12,6 +12,7 @@ import * as Clipboard from "expo-clipboard";
 type Data = {
   id: string;
   nameApp: string;
+  loginApp: string;
   passwordApp: string;
 };
 
@@ -34,6 +35,7 @@ export function Home() {
     const info = data.filter((item) => item.id == id);
 
     setInfo(info);
+    console.log(info)
     setModalInfoVisible(true);
   }
 
@@ -41,16 +43,12 @@ export function Home() {
     getData();
   }, [data]);
 
-function confirmRemove(id: string){
-  Alert.alert(
-    "Deletar senha",
-    "Deseja realmente deletar esta senha?",
-    [
-      {text: "Cancelar", onPress: () => {}},
-      {text: "Sim", onPress: () => handleRemove(id)}
-    ]
-  )
-}
+  function confirmRemove(id: string) {
+    Alert.alert("Deletar senha", "Deseja realmente deletar esta senha?", [
+      { text: "Cancelar", onPress: () => {} },
+      { text: "Sim", onPress: () => handleRemove(id) },
+    ]);
+  }
 
   async function handleRemove(id: string) {
     const response = await AsyncStorage.getItem(KEY_STORAGE);
@@ -67,7 +65,7 @@ function confirmRemove(id: string){
       .filter((item) => item.id == id)
       .map((item) => item.passwordApp);
     Clipboard.setStringAsync(info.toString());
-    Alert.alert("Senha copiada");
+    Alert.alert("Sucesso!", "Senha copiada para a área de transferência!");
   }
 
   return (
@@ -86,7 +84,7 @@ function confirmRemove(id: string){
       <ModalInfo
         isVisible={modalInfoVisible}
         onClose={() => setModalInfoVisible(false)}
-        removePass={() =>confirmRemove(info[0].id)}
+        removePass={() => confirmRemove(info[0].id)}
         nameApp={info.map((item) => item.nameApp)}
         passwordApp={info.map((item) => item.passwordApp)}
       />
@@ -96,6 +94,7 @@ function confirmRemove(id: string){
             <Card
               key={item.id}
               nameApp={item.nameApp}
+              loginApp={item.loginApp}
               onPress={() => showInfo(item.id)}
               onLongPress={() => handleCopy(item.id)}
             />
@@ -118,12 +117,12 @@ const styles = StyleSheet.create({
   emptyContainer: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   emptyText: {
     fontFamily: theme.fonts.regular,
     color: theme.colors.primary,
-    fontSize: 18
+    fontSize: 18,
   },
   header: {
     height: RFPercentage(18),

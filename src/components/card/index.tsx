@@ -1,32 +1,46 @@
-import { Text, StyleSheet, Pressable, PressableProps } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  Pressable,
+  PressableProps,
+  View,
+} from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
 
 type CardProps = PressableProps & {
   nameApp: string;
+  loginApp?: string;
 };
 
-export function Card({ nameApp, ...props }: CardProps) {
+export function Card({ nameApp, loginApp, ...props }: CardProps) {
   return (
-    <Pressable
-      style={({ pressed }) => [
-        { opacity: pressed ? 0.3 : 1},
-        styles.container,
-      ]}
-      {...props}
-    >
+    <View style={styles.container}>
       <Text style={styles.nameApp}>{nameApp}</Text>
-      <Text style={styles.passwordApp}>••••••••••••••</Text>
-    </Pressable>
+      <Pressable
+        style={({ pressed }) => [
+          { opacity: pressed ? 0.3 : 1 },
+          styles.content,
+        ]}
+        {...props}
+      >
+        <Text style={styles.nameApp}>{loginApp}</Text>
+        <Text style={styles.passwordApp}>••••••••••••••</Text>
+      </Pressable>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: theme.colors.gray,
+    borderRadius: 8,
+    marginTop: 8
+  },
+  content: {
     backgroundColor: theme.colors.gray80,
-    height: RFPercentage(8),
+    height: RFPercentage(12),
     width: RFPercentage(48),
-    marginTop: 8,
     justifyContent: "center",
     borderRadius: 8,
   },

@@ -17,6 +17,7 @@ type ModalProps = {
 
 export function Modal({ isVisible, onClose }: ModalProps) {
   const [nameApp, setNameApp] = useState("");
+  const [loginApp, setLoginApp] = useState("");
   const [passwordApp, setPasswordApp] = useState("");
   const [errorName, setErrorName] = useState("");
   const [errorPass, setErrorPass] = useState("");
@@ -24,7 +25,11 @@ export function Modal({ isVisible, onClose }: ModalProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   let noError = <Text style={styles.noError}> </Text>;
-  let sucess = <Text style={styles.sucess}>Clique em gerar para obter uma senha forte</Text>;
+  let sucess = (
+    <Text style={styles.sucess}>
+      Clique em gerar para obter uma senha forte
+    </Text>
+  );
 
   function formValidator() {
     if (nameApp == "") {
@@ -39,12 +44,13 @@ export function Modal({ isVisible, onClose }: ModalProps) {
   }
 
   async function saveData() {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       const id = uuid();
       const newData = {
         id,
         nameApp,
+        loginApp,
         passwordApp,
       };
 
@@ -55,10 +61,13 @@ export function Modal({ isVisible, onClose }: ModalProps) {
 
       await AsyncStorage.setItem(KEY_STORAGE, JSON.stringify(data));
       setNameApp("");
+      setLoginApp("");
       setPasswordApp("");
       setIsLoading(false);
       setOnSucess("Senha salva com sucesso.");
-      setTimeout(() => {setOnSucess("")}, 3000)
+      setTimeout(() => {
+        setOnSucess("");
+      }, 3000);
     } catch (error) {
       console.log(error);
     }
@@ -96,6 +105,13 @@ export function Modal({ isVisible, onClose }: ModalProps) {
             {errorName ? errorName : noError}
           </Text>
           <Input
+            icon="heart"
+            value={loginApp}
+            placeholder="Login App"
+            // onChange={() => setErrorName("")}
+            onChangeText={setLoginApp}
+          />
+          <Input
             icon="lock"
             value={passwordApp}
             placeholder="Senha"
@@ -105,11 +121,13 @@ export function Modal({ isVisible, onClose }: ModalProps) {
           <Text style={styles.errorMessage}>
             {errorPass ? errorPass : noError}
           </Text>
-          <Text style={styles.sucess}>
-            {onSucess ? onSucess : sucess}
-          </Text>
+          <Text style={styles.sucess}>{onSucess ? onSucess : sucess}</Text>
           <View style={styles.buttons}>
-            <Button title="Salvar" onPress={formValidator} isLoading={isLoading}/>
+            <Button
+              title="Salvar"
+              onPress={formValidator}
+              isLoading={isLoading}
+            />
             <Button title="Gerar" onPress={getPassword} />
           </View>
         </View>
@@ -150,6 +168,6 @@ const styles = StyleSheet.create({
   },
   sucess: {
     fontSize: 14,
-    color: theme.colors.green80
-  }
+    color: theme.colors.green80,
+  },
 });

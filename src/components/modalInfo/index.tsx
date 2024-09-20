@@ -3,12 +3,12 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
 import { Button } from "../button";
 
-
 type ModalInfoProps = {
   isVisible: boolean;
   onClose: () => void;
   removePass: () => void;
   nameApp: string[];
+  loginApp: string[];
   passwordApp: string[];
 };
 
@@ -17,19 +17,19 @@ export function ModalInfo({
   onClose,
   removePass,
   nameApp,
+  loginApp,
   passwordApp,
 }: ModalInfoProps) {
-
   return (
     <Modal visible={isVisible} animationType="slide">
       <View style={styles.container}>
         <View style={styles.content}>
           <Text style={styles.nameApp}>{nameApp}</Text>
-          <View style={styles.viewPass}>
-            <TextInput
-              style={styles.inputPass}
-              value={passwordApp[0]}
-            />
+          <View style={styles.viewLoginApp}>
+            <TextInput style={styles.input} value={loginApp[0]} />
+          </View>
+          <View style={styles.viewPassApp}>
+            <TextInput style={styles.input} value={passwordApp[0]} />
           </View>
           <View style={styles.buttons}>
             <Button title="Voltar" onPress={onClose} />
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   content: {
     backgroundColor: theme.colors.primary,
-    height: RFPercentage(25),
+    height: RFPercentage(35),
     width: RFPercentage(45),
     borderRadius: 10,
     alignItems: "center",
@@ -61,10 +61,14 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: theme.colors.gray,
   },
-  viewPass: {
-    height: RFPercentage(5),
+  viewLoginApp: {
+    height: RFPercentage(6),
   },
-  inputPass: {
+  viewPassApp: {
+    height: RFPercentage(6),
+    marginTop: 10,
+  },
+  input: {
     fontFamily: theme.fonts.bold,
     fontSize: 18,
     backgroundColor: theme.colors.gray,

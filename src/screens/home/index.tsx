@@ -85,6 +85,7 @@ export function Home() {
         onClose={() => setModalInfoVisible(false)}
         removePass={() => confirmRemove(info[0].id)}
         nameApp={info.map((item) => item.nameApp)}
+        loginApp={info.map((item) => item.loginApp)}
         passwordApp={info.map((item) => item.passwordApp)}
       />
       {data.length > 0 ? (

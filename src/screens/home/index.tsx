@@ -25,16 +25,28 @@ type Data = {
   loginApp: string;
   passwordApp: string;
 };
+type User = {
+  name: string;
+}
 
 const KEY_STORAGE = "@appmypass";
+const KEY_USERNAME_STORAGE = "@nameuser"
 
 export function Home() {
   const [data, setData] = useState<Data[]>([]);
+  const [dataUserName, setDataUsername] = useState<User []>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalInfoVisible, setModalInfoVisible] = useState(false);
   const [info, setInfo] = useState<Data[]>([]);
 
   const{ navigate } = useNavigation<StackScreensProps>();
+
+  async function getUserName(){
+    const response = await AsyncStorage.getItem(KEY_USERNAME_STORAGE);
+    const dataUserName = response ? JSON.parse(response) : {}
+
+    setDataUsername([dataUserName])
+  }
 
   async function getData() {
     const response = await AsyncStorage.getItem(KEY_STORAGE);
@@ -52,6 +64,7 @@ export function Home() {
 
   useEffect(() => {
     getData();
+    getUserName();
   }, [data]);
 
   function confirmRemove(id: string) {
@@ -86,7 +99,7 @@ export function Home() {
           <TouchableOpacity onPress={() => navigate("Profile") }>
             <Image source={user} style={styles.avatar} />
           </TouchableOpacity>
-          <Text style={styles.userName}>Joao</Text>
+          <Text style={styles.userName}>{dataUserName.map((item) => item.name)}</Text>
         </View>
         <View style={styles.addPassword}>
           <Text style={styles.yourPass}>Suas senhas: {data.length}</Text>

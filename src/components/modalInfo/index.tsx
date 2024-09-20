@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   content: {
     backgroundColor: theme.colors.primary,
-    height: RFPercentage(35),
+    height: RFPercentage(40),
     width: RFPercentage(45),
     borderRadius: 10,
     alignItems: "center",

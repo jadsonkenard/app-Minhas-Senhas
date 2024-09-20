@@ -5,6 +5,7 @@ import { Input } from "./input";
 import { Card } from "./card";
 import { ModalInfo } from "./modalInfo";
 import { Menu } from "./menu";
+import { ModalGlobal } from "./modalGlobal";
 
 export {
     Loading,
@@ -13,5 +14,6 @@ export {
     Input,
     Card,
     ModalInfo,
-    Menu
+    Menu,
+    ModalGlobal
 }

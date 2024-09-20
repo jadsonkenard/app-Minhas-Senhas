@@ -4,13 +4,14 @@ import { theme } from "../../theme";
 import { RFPercentage } from "react-native-responsive-fontsize";
 
 type ButtonProps = TouchableOpacityProps & {
-    title: string
+    icon?: keyof typeof Feather.glyphMap;
+    title?: string;
 }
 
-export function Menu({title, ...props}: ButtonProps) {
+export function Menu({ icon, title, ...props }: ButtonProps) {
   return (
     <TouchableOpacity style={styles.container} {...props}>
-      <Feather name="activity" size={25} />
+      <Feather name={icon} size={20} />
       <Text style={styles.title}>{title}</Text>
       <Feather name="chevron-right" size={25} />
     </TouchableOpacity>
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
     height: RFPercentage(6),
     width: RFPercentage(45),
     borderRadius: 8,
-    backgroundColor: theme.colors.gray,
+    backgroundColor: theme.colors.gray80,
     paddingHorizontal: RFPercentage(1),
     justifyContent: "space-between",
     marginVertical: 2

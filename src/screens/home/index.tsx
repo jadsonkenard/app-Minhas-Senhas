@@ -1,4 +1,12 @@
-import { View, Text, StyleSheet, Image, ScrollView, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
 import user from "../../assets/user.png";
@@ -8,6 +16,8 @@ import { ModalInfo } from "../../components";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Clipboard from "expo-clipboard";
+import { useNavigation } from "@react-navigation/native";
+import { StackScreensProps } from "../../routes/routes";
 
 type Data = {
   id: string;
@@ -23,6 +33,8 @@ export function Home() {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalInfoVisible, setModalInfoVisible] = useState(false);
   const [info, setInfo] = useState<Data[]>([]);
+
+  const{ navigate } = useNavigation<StackScreensProps>();
 
   async function getData() {
     const response = await AsyncStorage.getItem(KEY_STORAGE);
@@ -71,11 +83,13 @@ export function Home() {
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.infoUser}>
-          <Image source={user} style={styles.avatar} />
+          <TouchableOpacity onPress={() => navigate("Profile") }>
+            <Image source={user} style={styles.avatar} />
+          </TouchableOpacity>
           <Text style={styles.userName}>Joao</Text>
         </View>
         <View style={styles.addPassword}>
-          <Text style={styles.yourPass}>Suas senhas</Text>
+          <Text style={styles.yourPass}>Suas senhas: {data.length}</Text>
           <Button title="Nova" onPress={() => setModalVisible(true)} />
         </View>
       </View>

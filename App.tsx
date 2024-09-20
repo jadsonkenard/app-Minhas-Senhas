@@ -1,14 +1,15 @@
 import { StatusBar } from "react-native";
 import { SafeAreaView } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
 import {
   useFonts,
   Poppins_400Regular,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 import { Loading } from "./src/components";
-import { Home } from "./src/screens";
 import { useEffect, useState } from "react";
 import { theme } from "./src/theme";
+import { Routes } from "./src/routes/routes";
 
 export default function App() {
   const [splash, setSplash] = useState(false);
@@ -28,13 +29,15 @@ export default function App() {
     return <Loading />;
   }
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar
-        translucent
-        backgroundColor={theme.colors.primary}
-        barStyle="light-content"
-      />
-      {splash ? <Home /> : <Loading />}
-    </SafeAreaView>
+    <NavigationContainer>
+      <SafeAreaView style={{ flex: 1 }}>
+        <StatusBar
+          translucent
+          backgroundColor={theme.colors.primary}
+          barStyle="light-content"
+        />
+        {splash ? <Routes /> : <Loading />}
+      </SafeAreaView>
+    </NavigationContainer>
   );
 }

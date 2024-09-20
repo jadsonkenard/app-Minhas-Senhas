@@ -20,6 +20,7 @@ export function Modal({ isVisible, onClose }: ModalProps) {
   const [loginApp, setLoginApp] = useState("");
   const [passwordApp, setPasswordApp] = useState("");
   const [errorName, setErrorName] = useState("");
+  const [errorLogin, setErrorLogin] = useState("");
   const [errorPass, setErrorPass] = useState("");
   const [onSucess, setOnSucess] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -34,6 +35,10 @@ export function Modal({ isVisible, onClose }: ModalProps) {
   function formValidator() {
     if (nameApp == "") {
       setErrorName("O nome do App é obrigatório");
+      return;
+    }
+    if (loginApp == "") {
+      setErrorLogin("Login ou email do App é obrigatório");
       return;
     }
     if (passwordApp == "") {
@@ -97,7 +102,7 @@ export function Modal({ isVisible, onClose }: ModalProps) {
           <Input
             icon="heart"
             value={nameApp}
-            placeholder="Nome do App"
+            placeholder="Nome"
             onChange={() => setErrorName("")}
             onChangeText={setNameApp}
           />
@@ -107,10 +112,13 @@ export function Modal({ isVisible, onClose }: ModalProps) {
           <Input
             icon="heart"
             value={loginApp}
-            placeholder="Login App"
-            // onChange={() => setErrorName("")}
+            placeholder="Login ou email"
+            onChange={() => setErrorLogin("")}
             onChangeText={setLoginApp}
           />
+          <Text style={styles.errorMessage}>
+            {errorLogin ? errorLogin : noError}
+          </Text>
           <Input
             icon="lock"
             value={passwordApp}
@@ -144,7 +152,7 @@ const styles = StyleSheet.create({
   },
   content: {
     backgroundColor: theme.colors.primary,
-    height: RFPercentage(40),
+    height: RFPercentage(45),
     width: RFPercentage(40),
     borderRadius: 10,
     alignItems: "center",

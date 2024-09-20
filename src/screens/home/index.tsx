@@ -35,7 +35,6 @@ export function Home() {
     const info = data.filter((item) => item.id == id);
 
     setInfo(info);
-    console.log(info)
     setModalInfoVisible(true);
   }
 

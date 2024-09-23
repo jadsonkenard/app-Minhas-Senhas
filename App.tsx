@@ -30,7 +30,7 @@ export default function App() {
   }
   return (
     <NavigationContainer>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.primary }}>
         <StatusBar
           translucent
           backgroundColor={theme.colors.primary}

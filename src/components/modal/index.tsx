@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Modal as ModalApp, StyleSheet, View, Text } from "react-native";
+import {
+  Modal as ModalApp,
+  StyleSheet,
+  View,
+  Text,
+  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { theme } from "../../theme";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Button } from "../button";
@@ -93,54 +101,58 @@ export function Modal({ isVisible, onClose }: ModalProps) {
   }
 
   return (
-    <ModalApp visible={isVisible} animationType="slide">
-      <View style={styles.container}>
-        <View style={styles.closeButton}>
-          <Button title="Fechar" onPress={onClose} />
-        </View>
-        <View style={styles.content}>
-          <Input
-            icon="heart"
-            value={nameApp}
-            placeholder="Nome"
-            onChange={() => setErrorName("")}
-            onChangeText={setNameApp}
-          />
-          <Text style={styles.errorMessage}>
-            {errorName ? errorName : noError}
-          </Text>
-          <Input
-            icon="heart"
-            value={loginApp}
-            placeholder="Login ou email"
-            onChange={() => setErrorLogin("")}
-            onChangeText={setLoginApp}
-          />
-          <Text style={styles.errorMessage}>
-            {errorLogin ? errorLogin : noError}
-          </Text>
-          <Input
-            icon="lock"
-            value={passwordApp}
-            placeholder="Senha"
-            onChange={() => setErrorPass("")}
-            onChangeText={setPasswordApp}
-          />
-          <Text style={styles.errorMessage}>
-            {errorPass ? errorPass : noError}
-          </Text>
-          <Text style={styles.sucess}>{onSucess ? onSucess : sucess}</Text>
-          <View style={styles.buttons}>
-            <Button
-              title="Salvar"
-              onPress={formValidator}
-              isLoading={isLoading}
-            />
-            <Button title="Gerar" onPress={getPassword} />
+    <KeyboardAvoidingView behavior="padding">
+        <ModalApp visible={isVisible} animationType="slide">
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <View style={styles.container}>
+            <View style={styles.closeButton}>
+              <Button title="Fechar" onPress={onClose} />
+            </View>
+            <View style={styles.content}>
+              <Input
+                icon="heart"
+                value={nameApp}
+                placeholder="Nome"
+                onChange={() => setErrorName("")}
+                onChangeText={setNameApp}
+              />
+              <Text style={styles.errorMessage}>
+                {errorName ? errorName : noError}
+              </Text>
+              <Input
+                icon="at-sign"
+                value={loginApp}
+                placeholder="Login ou email"
+                onChange={() => setErrorLogin("")}
+                onChangeText={setLoginApp}
+              />
+              <Text style={styles.errorMessage}>
+                {errorLogin ? errorLogin : noError}
+              </Text>
+              <Input
+                icon="lock"
+                value={passwordApp}
+                placeholder="Senha"
+                onChange={() => setErrorPass("")}
+                onChangeText={setPasswordApp}
+              />
+              <Text style={styles.errorMessage}>
+                {errorPass ? errorPass : noError}
+              </Text>
+              <Text style={styles.sucess}>{onSucess ? onSucess : sucess}</Text>
+              <View style={styles.buttons}>
+                <Button
+                  title="Salvar"
+                  onPress={formValidator}
+                  isLoading={isLoading}
+                />
+                <Button title="Gerar" onPress={getPassword} />
+              </View>
+            </View>
           </View>
-        </View>
-      </View>
-    </ModalApp>
+          </TouchableWithoutFeedback>
+        </ModalApp>
+    </KeyboardAvoidingView>
   );
 }
 

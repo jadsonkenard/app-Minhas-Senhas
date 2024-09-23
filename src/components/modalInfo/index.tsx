@@ -1,4 +1,12 @@
-import { Modal, View, Text, StyleSheet, TextInput } from "react-native";
+import {
+  Modal,
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
 import { Button } from "../button";
@@ -22,21 +30,23 @@ export function ModalInfo({
 }: ModalInfoProps) {
   return (
     <Modal visible={isVisible} animationType="slide">
-      <View style={styles.container}>
-        <View style={styles.content}>
-          <Text style={styles.nameApp}>{nameApp}</Text>
-          <View style={styles.viewLoginApp}>
-            <TextInput style={styles.input} value={loginApp[0]} />
-          </View>
-          <View style={styles.viewPassApp}>
-            <TextInput style={styles.input} value={passwordApp[0]} />
-          </View>
-          <View style={styles.buttons}>
-            <Button title="Voltar" onPress={onClose} />
-            <Button title="Apagar" onPress={removePass} />
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <View style={styles.content}>
+            <Text style={styles.nameApp}>{nameApp}</Text>
+            <View style={styles.viewLoginApp}>
+              <TextInput style={styles.input} value={loginApp[0]} />
+            </View>
+            <View style={styles.viewPassApp}>
+              <TextInput style={styles.input} value={passwordApp[0]} />
+            </View>
+            <View style={styles.buttons}>
+              <Button title="Voltar" onPress={onClose} />
+              <Button title="Apagar" onPress={removePass} />
+            </View>
           </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 }
@@ -59,6 +69,7 @@ const styles = StyleSheet.create({
   nameApp: {
     fontFamily: theme.fonts.bold,
     fontSize: 22,
+    marginBottom: 16,
     color: theme.colors.gray,
   },
   viewLoginApp: {

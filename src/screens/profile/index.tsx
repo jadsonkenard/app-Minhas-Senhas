@@ -58,7 +58,7 @@ export function Profile() {
       <ModalGlobal isVisible={visible} onCLose={() => setVisible(false)}>
         <Text style={styles.titleModal}>Nome</Text>
         <Input icon="edit-3" onChangeText={setName} />
-        <Button title="Salvar" onPress={setNameUser} />
+        <Button title="Salvar" onPress={setNameUser}/>
       </ModalGlobal>
     </View>
   );

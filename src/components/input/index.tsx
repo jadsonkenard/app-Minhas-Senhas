@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   view: {
     flexDirection: "row",
     height: RFPercentage(7),
-    width: "100%",
+    width: "85%",
     marginTop: RFPercentage(0.5),
     alignItems: "center",
     justifyContent: "center",
@@ -46,14 +46,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     height: "100%",
-    width: "80%",
-    paddingLeft: RFPercentage(5),
+    width: "100%",
+    paddingLeft: 35,
     paddingRight: RFPercentage(2),
     fontSize: 18,
     color: theme.colors.gray,
   },
   icon: {
     position: "absolute",
-    left: RFPercentage(5),
+    left: 8,
   },
 });

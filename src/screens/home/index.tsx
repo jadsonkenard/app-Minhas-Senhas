@@ -27,25 +27,25 @@ type Data = {
 };
 type User = {
   name: string;
-}
+};
 
 const KEY_STORAGE = "@appmypass";
-const KEY_USERNAME_STORAGE = "@nameuser"
+const KEY_USERNAME_STORAGE = "@nameuser";
 
 export function Home() {
   const [data, setData] = useState<Data[]>([]);
-  const [dataUserName, setDataUsername] = useState<User []>([]);
+  const [dataUserName, setDataUsername] = useState<User[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalInfoVisible, setModalInfoVisible] = useState(false);
   const [info, setInfo] = useState<Data[]>([]);
 
-  const{ navigate } = useNavigation<StackScreensProps>();
+  const { navigate } = useNavigation<StackScreensProps>();
 
-  async function getUserName(){
+  async function getUserName() {
     const response = await AsyncStorage.getItem(KEY_USERNAME_STORAGE);
-    const dataUserName = response ? JSON.parse(response) : {}
+    const dataUserName = response ? JSON.parse(response) : {};
 
-    setDataUsername([dataUserName])
+    setDataUsername([dataUserName]);
   }
 
   async function getData() {
@@ -96,10 +96,12 @@ export function Home() {
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.infoUser}>
-          <TouchableOpacity onPress={() => navigate("Profile") }>
+          <TouchableOpacity onPress={() => navigate("Profile")}>
             <Image source={user} style={styles.avatar} />
           </TouchableOpacity>
-          <Text style={styles.userName}>{dataUserName.map((item) => item.name)}</Text>
+          <Text style={styles.userName}>
+            {dataUserName.map((item) => item.name)}
+          </Text>
         </View>
         <View style={styles.addPassword}>
           <Text style={styles.yourPass}>Suas senhas: {data.length}</Text>

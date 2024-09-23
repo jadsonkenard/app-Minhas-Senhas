@@ -1,5 +1,11 @@
 import { PropsWithChildren } from "react";
-import { Modal, StyleSheet, View } from "react-native";
+import {
+  Keyboard,
+  Modal,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import { Button } from "../button";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
@@ -16,14 +22,16 @@ export function ModalGlobal({
 }: PropsWithChildren<ModalGlobalProps>) {
   return (
     <Modal visible={isVisible} animationType="slide">
-      <View style={styles.container}>
-        <View style={styles.closeButton}>
-          <Button title="Fechar" onPress={onCLose} />
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <View style={styles.closeButton}>
+            <Button title="Fechar" onPress={onCLose} />
+          </View>
+          <View style={styles.content}>
+            <View>{children}</View>
+          </View>
         </View>
-        <View style={styles.content}>
-          <View>{children}</View>
-        </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 }
@@ -35,6 +43,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   content: {
+    alignItems: "center",
     backgroundColor: theme.colors.primary,
     height: RFPercentage(45),
     width: RFPercentage(45),

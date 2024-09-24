@@ -28,6 +28,8 @@ export function Profile() {
   const [erroLastName, setErroLastName] = useState("");
   const [erroEmail, setErroEmail] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
   function formValidator() {
     if (name == "" || name.length < 3) {
       setErroName("Nome inválido");
@@ -45,6 +47,7 @@ export function Profile() {
   }
 
   async function setNameUser() {
+    setIsLoading(true)
     try {
       const id = uuid();
       const newUser = {
@@ -58,6 +61,8 @@ export function Profile() {
     } catch (err) {
       console.log(err);
     }
+    setIsLoading(false);
+    setVisible(false);
   }
 
   async function getUserName() {
@@ -122,7 +127,7 @@ export function Profile() {
             <Text style={styles.noError}> </Text>
           )}
           <View style={styles.buttonsModal}>
-            <Button title="Salvar" onPress={formValidator} />
+            <Button title="Salvar" onPress={formValidator} isLoading={isLoading} />
             <Button title="Fechar" onPress={() => setVisible(false)} />
           </View>
         </View>

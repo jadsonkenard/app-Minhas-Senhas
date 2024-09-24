@@ -76,7 +76,6 @@ export function Modal({ isVisible, onClose }: ModalProps) {
       setNameApp("");
       setLoginApp("");
       setPasswordApp("");
-      setIsLoading(false);
       setOnSucess("Senha salva com sucesso.");
       setTimeout(() => {
         setOnSucess("");
@@ -84,6 +83,7 @@ export function Modal({ isVisible, onClose }: ModalProps) {
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false);
   }
 
   function getPassword() {
@@ -102,7 +102,7 @@ export function Modal({ isVisible, onClose }: ModalProps) {
 
   return (
     <KeyboardAvoidingView behavior="padding">
-        <ModalApp visible={isVisible} animationType="slide">
+      <ModalApp visible={isVisible} animationType="slide">
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <View style={styles.container}>
             <View style={styles.content}>
@@ -148,8 +148,8 @@ export function Modal({ isVisible, onClose }: ModalProps) {
               </View>
             </View>
           </View>
-          </TouchableWithoutFeedback>
-        </ModalApp>
+        </TouchableWithoutFeedback>
+      </ModalApp>
     </KeyboardAvoidingView>
   );
 }
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   errorMessage: {
     fontFamily: theme.fonts.regular,
     fontSize: 14,
-    color: theme.colors.red
+    color: theme.colors.red,
   },
   noError: {
     fontSize: 14,

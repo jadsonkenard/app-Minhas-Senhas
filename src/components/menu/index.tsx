@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.gray80,
     paddingHorizontal: RFPercentage(1),
     justifyContent: "space-between",
-    marginVertical: 2
+    marginVertical: 4
   },
   title: {
     fontFamily: theme.fonts.bold,

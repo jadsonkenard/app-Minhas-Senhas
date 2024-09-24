@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   content: {
     backgroundColor: theme.colors.gray80,
-    height: RFPercentage(12),
+    height: RFPercentage(10),
     width: RFPercentage(48),
     justifyContent: "center",
     borderRadius: 8,
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.bold,
     fontSize: 22,
     marginLeft: RFPercentage(2),
+    marginBottom: -6
   },
   passwordApp: {
     fontFamily: theme.fonts.regular,

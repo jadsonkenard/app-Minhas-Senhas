@@ -121,13 +121,15 @@ export function Profile() {
           ) : (
             <Text style={styles.noError}> </Text>
           )}
-          <View style={styles.buttons}>
+          <View style={styles.buttonsModal}>
             <Button title="Salvar" onPress={formValidator} />
             <Button title="Fechar" onPress={() => setVisible(false)} />
           </View>
         </View>
       </ModalGlobal>
+      <View style={styles.button}>
       <Button title="Alterar" onPress={() => setVisible(true)} />
+      </View>
     </View>
   );
 }
@@ -159,9 +161,12 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
   },
-  buttons: {
+  buttonsModal: {
     flexDirection: "row",
     marginTop: RFPercentage(1),
+  },
+  button: {
+    marginTop: RFPercentage(2)
   },
   erroMessage: {
     fontFamily: theme.fonts.regular,

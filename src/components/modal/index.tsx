@@ -105,9 +105,6 @@ export function Modal({ isVisible, onClose }: ModalProps) {
         <ModalApp visible={isVisible} animationType="slide">
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <View style={styles.container}>
-            <View style={styles.closeButton}>
-              <Button title="Fechar" onPress={onClose} />
-            </View>
             <View style={styles.content}>
               <Input
                 icon="heart"
@@ -147,6 +144,7 @@ export function Modal({ isVisible, onClose }: ModalProps) {
                   isLoading={isLoading}
                 />
                 <Button title="Gerar" onPress={getPassword} />
+                <Button title="Fechar" onPress={onClose} />
               </View>
             </View>
           </View>
@@ -170,9 +168,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     elevation: 10,
-  },
-  closeButton: {
-    marginBottom: RFPercentage(1),
   },
   buttons: {
     flexDirection: "row",

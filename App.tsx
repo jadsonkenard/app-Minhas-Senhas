@@ -22,7 +22,7 @@ export default function App() {
     setSplash(true);
   }
   useEffect(() => {
-    setTimeout(splashScreen, 3000);
+    setTimeout(splashScreen, 1000);
   }, []);
 
   if (!fontLoad) {

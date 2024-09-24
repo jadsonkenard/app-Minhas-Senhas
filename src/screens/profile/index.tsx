@@ -25,7 +25,7 @@ export function Profile() {
         name,
       };
       await AsyncStorage.setItem(KEY_USERNAME_STORAGE, JSON.stringify(newName));
-      Alert.alert("dados salvos");
+      Alert.alert("Atenção", "Dados alterados com sucesso!");
     } catch (err) {
       console.log(err);
     }
@@ -50,15 +50,24 @@ export function Profile() {
         <Text>Foto</Text>
       </View>
       <View style={styles.viewMenu}>
-        <Menu icon="edit-3" title={userNameString} onPress={() => setVisible(true)} />
+        <Menu
+          icon="edit-3"
+          title={userNameString}
+          onPress={() => setVisible(true)}
+        />
         <Menu />
         <Menu />
         <Menu />
       </View>
       <ModalGlobal isVisible={visible} onCLose={() => setVisible(false)}>
-        <Text style={styles.titleModal}>Nome</Text>
-        <Input icon="edit-3" onChangeText={setName} />
-        <Button title="Salvar" onPress={setNameUser}/>
+        <View style={styles.modalContent}>
+          <Text style={styles.titleModal}>Nome</Text>
+          <Input icon="edit-3" onChangeText={setName} />
+          <View style={styles.buttons}>
+            <Button title="Salvar" onPress={setNameUser} />
+            <Button title="Fechar" onPress={() => setVisible(false)} />
+          </View>
+        </View>
       </ModalGlobal>
     </View>
   );
@@ -84,4 +93,14 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: RFPercentage(2),
   },
+  modalContent: {
+    flex: 1,
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+  },
+  buttons: {
+    flexDirection: "row",
+    marginTop: RFPercentage(1)
+  }
 });

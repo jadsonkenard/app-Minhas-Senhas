@@ -24,9 +24,6 @@ export function ModalGlobal({
     <Modal visible={isVisible} animationType="slide">
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>
-          <View style={styles.closeButton}>
-            <Button title="Fechar" onPress={onCLose} />
-          </View>
           <View style={styles.content}>
             <View>{children}</View>
           </View>
@@ -49,8 +46,5 @@ const styles = StyleSheet.create({
     width: RFPercentage(45),
     borderRadius: 10,
     elevation: 10,
-  },
-  closeButton: {
-    marginBottom: RFPercentage(1),
-  },
+  }
 });

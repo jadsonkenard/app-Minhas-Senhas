@@ -43,9 +43,9 @@ export function Home() {
 
   async function getUserName() {
     const response = await AsyncStorage.getItem(KEY_USERNAME_STORAGE);
-    const dataUserName = response ? JSON.parse(response) : {};
+    const dataUser = response ? JSON.parse(response) : {};
 
-    setDataUsername([dataUserName]);
+    setDataUsername([dataUser]);
   }
 
   async function getData() {

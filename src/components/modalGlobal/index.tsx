@@ -6,7 +6,6 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { Button } from "../button";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
 
@@ -42,9 +41,9 @@ const styles = StyleSheet.create({
   content: {
     alignItems: "center",
     backgroundColor: theme.colors.primary,
-    height: RFPercentage(45),
+    height: RFPercentage(46),
     width: RFPercentage(45),
     borderRadius: 10,
     elevation: 10,
-  }
+  },
 });

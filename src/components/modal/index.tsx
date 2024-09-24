@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   errorMessage: {
     fontFamily: theme.fonts.regular,
     fontSize: 14,
-    color: "red",
+    color: theme.colors.red
   },
   noError: {
     fontSize: 14,

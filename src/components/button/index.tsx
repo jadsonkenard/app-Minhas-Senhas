@@ -7,9 +7,10 @@ import {
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
+import Feather from "@expo/vector-icons/Feather";
 
 type ButtonProps = TouchableOpacityProps & {
-  title: string;
+  title?: string;
   isLoading?: boolean
 };
 

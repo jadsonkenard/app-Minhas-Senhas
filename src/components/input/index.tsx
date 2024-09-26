@@ -1,7 +1,6 @@
 import {
   TextInput,
   StyleSheet,
-  Text,
   View,
   TextInputProps,
 } from "react-native";

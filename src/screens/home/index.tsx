@@ -19,6 +19,7 @@ import * as Clipboard from "expo-clipboard";
 import { useNavigation } from "@react-navigation/native";
 import { StackScreensProps } from "../../routes/routes";
 
+
 type Data = {
   id: string;
   nameApp: string;
@@ -38,6 +39,7 @@ export function Home() {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalInfoVisible, setModalInfoVisible] = useState(false);
   const [info, setInfo] = useState<Data[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { navigate } = useNavigation<StackScreensProps>();
 
@@ -49,10 +51,12 @@ export function Home() {
   }
 
   async function getData() {
+    setIsLoading(true);
     const response = await AsyncStorage.getItem(KEY_STORAGE);
     const data = response ? JSON.parse(response) : [];
 
     setData(data);
+    setIsLoading(false)
   }
 
   async function showInfo(id: string) {
@@ -65,7 +69,7 @@ export function Home() {
   useEffect(() => {
     getData();
     getUserName();
-  }, [data]);
+  }, []);
 
   function confirmRemove(id: string) {
     Alert.alert("Deletar senha", "Deseja realmente deletar esta senha?", [
@@ -92,6 +96,11 @@ export function Home() {
     Alert.alert("Sucesso!", "Senha copiada para a área de transferência!");
   }
 
+  function upDate(){
+    getData();
+    getUserName();
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -105,7 +114,10 @@ export function Home() {
         </View>
         <View style={styles.addPassword}>
           <Text style={styles.yourPass}>Suas senhas: {data.length}</Text>
-          <Button title="Nova" onPress={() => setModalVisible(true)} />
+          <View style={styles.buttons}>
+            <Button title="upDate" onPress={upDate} isLoading={isLoading}/>
+            <Button title="Nova" onPress={() => setModalVisible(true)} />
+          </View>
         </View>
       </View>
       <Modal isVisible={modalVisible} onClose={() => setModalVisible(false)} />
@@ -179,11 +191,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: RFPercentage(2),
-    marginHorizontal: RFPercentage(2),
+    marginHorizontal: RFPercentage(1),
+  },
+  buttons: {
+    flexDirection: "row"
   },
   yourPass: {
     fontFamily: theme.fonts.bold,
     color: theme.colors.primaryWhite,
-    fontSize: 22,
+    fontSize: 18,
   },
 });

@@ -24,7 +24,7 @@ export function Card({ nameApp, loginApp, ...props }: CardProps) {
         ]}
         {...props}
       >
-        <Text style={styles.nameApp}>{loginApp}</Text>
+        <Text style={styles.loginApp}>{loginApp}</Text>
         <Text style={styles.passwordApp}>••••••••••••••</Text>
       </Pressable>
     </View>
@@ -35,24 +35,30 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.gray,
     borderRadius: 8,
-    marginTop: 8
+    marginTop: 8,
   },
   content: {
     backgroundColor: theme.colors.gray80,
-    height: RFPercentage(10),
+    height: RFPercentage(8),
     width: RFPercentage(48),
     justifyContent: "center",
     borderRadius: 8,
   },
   nameApp: {
+    fontFamily: theme.fonts.regular,
+    fontSize: 20,
+    marginLeft: RFPercentage(2),
+    marginBottom: -4,
+  },
+  loginApp: {
     fontFamily: theme.fonts.bold,
     fontSize: 22,
     marginLeft: RFPercentage(2),
-    marginBottom: -6
+    marginBottom: -16,
   },
   passwordApp: {
     fontFamily: theme.fonts.regular,
-    fontSize: 25,
+    fontSize: 22,
     marginLeft: RFPercentage(2),
   },
 });

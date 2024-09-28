@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     height: RFPercentage(6),
     width: RFPercentage(45),
     borderRadius: 8,
-    backgroundColor: theme.colors.gray80,
+    backgroundColor: theme.colors.gray,
     paddingHorizontal: RFPercentage(1),
     justifyContent: "space-between",
     marginVertical: 4

@@ -41,8 +41,8 @@ export function ModalInfo({
               <TextInput style={styles.input} value={passwordApp[0]} />
             </View>
             <View style={styles.buttons}>
-              <Button onPress={onClose}><Text>Voltar</Text></Button>
               <Button onPress={removePass}><Text>Apagar</Text></Button>
+              <Button onPress={onClose}><Text>Voltar</Text></Button>
             </View>
           </View>
         </View>

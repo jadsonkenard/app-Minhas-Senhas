@@ -9,6 +9,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const VALID_EMAIL_EXPRESSION =
   /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
 
+const KEY_STORAGE = "@appmypass";
 const KEY_USERNAME_STORAGE = "@nameuser";
 
 type User = {
@@ -72,6 +73,22 @@ export function Profile() {
     setDataUsername([dataUser]);
   }
 
+  function confirmRemove() {
+    Alert.alert(
+      "Atenção",
+      "Esta ação não pode ser desfeita. Deseja prosseguir",
+      [
+        { text: "Não", onPress: () => {} },
+        { text: "Sim", onPress: () => deleteAll() },
+      ]
+    );
+  }
+
+  async function deleteAll() {
+    const response = await AsyncStorage.removeItem(KEY_STORAGE);
+    Alert.alert("Atenção", "Todas a senhas foram deletadas com sucesso.");
+  }
+
   useEffect(() => {
     getUserName();
   });
@@ -85,6 +102,7 @@ export function Profile() {
       <View style={styles.viewImage}>
         <Text>Foto</Text>
       </View>
+      <Text style={styles.titles}>Dados pessoais</Text>
       <View style={styles.viewMenu}>
         <Menu icon="user" title={nameString} />
         <Menu icon="user-check" title={lastNameString} />
@@ -141,6 +159,11 @@ export function Profile() {
           <Text>Alterar</Text>
         </Button>
       </View>
+      <Text style={styles.titles}>Avançado</Text>
+      <View style={styles.viewMenu}>
+        <Menu icon="save" title="Backup das senhas" />
+        <Menu icon="trash" title="Apagar senhas" onPress={confirmRemove} />
+      </View>
     </View>
   );
 }
@@ -154,6 +177,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     height: RFPercentage(15),
+  },
+  titles: {
+    fontFamily: theme.fonts.regular,
+    alignSelf: "flex-start",
+    marginLeft: RFPercentage(3),
+    marginBottom: -10,
   },
   viewMenu: {
     alignItems: "center",

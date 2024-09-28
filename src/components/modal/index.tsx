@@ -138,12 +138,15 @@ export function Modal({ isVisible, onClose }: ModalProps) {
               </Text>
               <Text style={styles.sucess}>{onSucess ? onSucess : sucess}</Text>
               <View style={styles.buttons}>
-                <Button
-                  onPress={formValidator}
-                  isLoading={isLoading}
-                ><Text>Salvar</Text></Button>
-                <Button onPress={getPassword}><Text>Gerar</Text></Button>
-                <Button onPress={onClose}><Text>Fechar</Text></Button>
+                <Button onPress={formValidator} isLoading={isLoading}>
+                  <Text>Salvar</Text>
+                </Button>
+                <Button onPress={getPassword}>
+                  <Text>Gerar</Text>
+                </Button>
+                <Button onPress={onClose}>
+                  <Text>Fechar</Text>
+                </Button>
               </View>
             </View>
           </View>

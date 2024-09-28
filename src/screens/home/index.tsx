@@ -13,10 +13,10 @@ import user from "../../assets/user.png";
 import { Button, Card } from "../../components";
 import { Modal } from "../../components";
 import { ModalInfo } from "../../components";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Clipboard from "expo-clipboard";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { StackScreensProps } from "../../routes/routes";
 import Feather from "@expo/vector-icons/Feather";
 
@@ -51,12 +51,10 @@ export function Home() {
   }
 
   async function getData() {
-    setIsLoading(true);
     const response = await AsyncStorage.getItem(KEY_STORAGE);
     const data = response ? JSON.parse(response) : [];
 
     setData(data);
-    setIsLoading(false)
   }
 
   async function showInfo(id: string) {
@@ -66,10 +64,10 @@ export function Home() {
     setModalInfoVisible(true);
   }
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     getData();
     getUserName();
-  }, []);
+  }, []));
 
   function confirmRemove(id: string) {
     Alert.alert("Deletar senha", "Deseja realmente deletar esta senha?", [
@@ -96,9 +94,13 @@ export function Home() {
     Alert.alert("Sucesso!", "Senha copiada para a área de transferência!");
   }
 
-  function upDate(){
+  function upDate() {
+    setIsLoading(true);
     getData();
     getUserName();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   }
 
   return (
@@ -116,9 +118,11 @@ export function Home() {
           <Text style={styles.yourPass}>Suas senhas: {data.length}</Text>
           <View style={styles.buttons}>
             <Button onPress={upDate} isLoading={isLoading}>
-              <Feather name="refresh-cw" size={20}/>
+              <Feather name="refresh-cw" size={20} />
             </Button>
-            <Button onPress={() => setModalVisible(true)}><Text>Nova</Text></Button>
+            <Button onPress={() => setModalVisible(true)}>
+              <Text>Nova</Text>
+            </Button>
           </View>
         </View>
       </View>
@@ -196,7 +200,7 @@ const styles = StyleSheet.create({
     marginHorizontal: RFPercentage(1),
   },
   buttons: {
-    flexDirection: "row"
+    flexDirection: "row",
   },
   yourPass: {
     fontFamily: theme.fonts.bold,

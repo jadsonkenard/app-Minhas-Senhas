@@ -24,21 +24,13 @@ export function Button({
   return (
     <TouchableOpacity style={styles.container} {...props}>
       {isLoading ? (
-        <ActivityIndicator color={theme.colors.primary} />
+        <ActivityIndicator color={theme.colors.primary} size={24}/>
       ) : (
         <Text style={styles.title}>{children}</Text>
       )}
     </TouchableOpacity>
   );
 }
-
-// {
-//   isLoading ? (
-//     <ActivityIndicator color={theme.colors.primary}/>
-//   ) : (
-//     <Text style={styles.title}>{title}</Text>
-//   )
-// }
 
 const styles = StyleSheet.create({
   container: {

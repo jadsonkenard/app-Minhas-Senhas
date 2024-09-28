@@ -83,6 +83,16 @@ export function Profile() {
       ]
     );
   }
+  async function getDataForDelete() {
+    const response = await AsyncStorage.getItem(KEY_STORAGE);
+    const data = response ? JSON.parse(response) : [];
+
+    if (data.length == 0) {
+      Alert.alert("Atenção", "Nenhuma senha foi encontrada");
+      return;
+    }
+    confirmRemove();
+  }
 
   async function deleteAll() {
     const response = await AsyncStorage.removeItem(KEY_STORAGE);
@@ -161,8 +171,12 @@ export function Profile() {
       </View>
       <Text style={styles.titles}>Avançado</Text>
       <View style={styles.viewMenu}>
-        <Menu icon="save" title="Backup das senhas" />
-        <Menu icon="trash" title="Apagar senhas" onPress={confirmRemove} />
+        <Menu
+          icon="save"
+          title="Backup das senhas"
+          onPress={getDataForDelete}
+        />
+        <Menu icon="trash" title="Apagar senhas" onPress={getDataForDelete} />
       </View>
     </View>
   );

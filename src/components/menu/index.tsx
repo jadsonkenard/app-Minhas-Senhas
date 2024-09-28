@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.bold,
     fontSize: 18,
     position: "absolute",
-    left: RFPercentage(6)
+    left: RFPercentage(4.5)
   },
 });

@@ -1,9 +1,4 @@
-import {
-  TextInput,
-  StyleSheet,
-  View,
-  TextInputProps,
-} from "react-native";
+import { TextInput, StyleSheet, View, TextInputProps } from "react-native";
 import Feather from "@expo/vector-icons/Feather";
 import { theme } from "../../theme";
 import { RFPercentage } from "react-native-responsive-fontsize";

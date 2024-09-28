@@ -18,7 +18,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Clipboard from "expo-clipboard";
 import { useNavigation } from "@react-navigation/native";
 import { StackScreensProps } from "../../routes/routes";
-
+import Feather from "@expo/vector-icons/Feather";
 
 type Data = {
   id: string;
@@ -115,8 +115,10 @@ export function Home() {
         <View style={styles.addPassword}>
           <Text style={styles.yourPass}>Suas senhas: {data.length}</Text>
           <View style={styles.buttons}>
-            <Button title="upDate" onPress={upDate} isLoading={isLoading}/>
-            <Button title="Nova" onPress={() => setModalVisible(true)} />
+            <Button onPress={upDate} isLoading={isLoading}>
+              <Feather name="refresh-cw" size={20}/>
+            </Button>
+            <Button onPress={() => setModalVisible(true)}><Text>Nova</Text></Button>
           </View>
         </View>
       </View>

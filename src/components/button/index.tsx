@@ -3,30 +3,42 @@ import {
   TouchableOpacityProps,
   Text,
   StyleSheet,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
+import { PropsWithChildren } from "react";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { theme } from "../../theme";
 import Feather from "@expo/vector-icons/Feather";
 
 type ButtonProps = TouchableOpacityProps & {
-  title?: string;
-  isLoading?: boolean
+  title?: string | keyof typeof Feather.glyphMap;
+  isLoading?: boolean;
 };
 
-export function Button({ title, isLoading = false, ...props }: ButtonProps) {
+export function Button({
+  title,
+  isLoading = false,
+  children,
+  ...props
+}: PropsWithChildren<ButtonProps>) {
   return (
     <TouchableOpacity style={styles.container} {...props}>
-      {
-        isLoading ? (
-          <ActivityIndicator color={theme.colors.primary}/>
-        ) : (
-          <Text style={styles.title}>{title}</Text>
-        )
-      }
+      {isLoading ? (
+        <ActivityIndicator color={theme.colors.primary} />
+      ) : (
+        <Text style={styles.title}>{children}</Text>
+      )}
     </TouchableOpacity>
   );
 }
+
+// {
+//   isLoading ? (
+//     <ActivityIndicator color={theme.colors.primary}/>
+//   ) : (
+//     <Text style={styles.title}>{title}</Text>
+//   )
+// }
 
 const styles = StyleSheet.create({
   container: {

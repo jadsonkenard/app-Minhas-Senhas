@@ -47,7 +47,7 @@ export function Profile() {
   }
 
   async function setNameUser() {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       const id = uuid();
       const newUser = {
@@ -127,13 +127,19 @@ export function Profile() {
             <Text style={styles.noError}> </Text>
           )}
           <View style={styles.buttonsModal}>
-            <Button title="Salvar" onPress={formValidator} isLoading={isLoading} />
-            <Button title="Fechar" onPress={() => setVisible(false)} />
+            <Button onPress={formValidator} isLoading={isLoading}>
+              <Text>Salvar</Text>
+            </Button>
+            <Button onPress={() => setVisible(false)}>
+              <Text>Fechar</Text>
+            </Button>
           </View>
         </View>
       </ModalGlobal>
       <View style={styles.button}>
-      <Button title="Alterar" onPress={() => setVisible(true)} />
+        <Button onPress={() => setVisible(true)}>
+          <Text>Alterar</Text>
+        </Button>
       </View>
     </View>
   );
@@ -171,7 +177,7 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(1),
   },
   button: {
-    marginTop: RFPercentage(2)
+    marginTop: RFPercentage(2),
   },
   erroMessage: {
     fontFamily: theme.fonts.regular,

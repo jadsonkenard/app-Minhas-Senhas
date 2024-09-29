@@ -73,16 +73,6 @@ export function Profile() {
     setDataUsername([dataUser]);
   }
 
-  function confirmRemove() {
-    Alert.alert(
-      "Atenção",
-      "Esta ação não pode ser desfeita. Deseja prosseguir",
-      [
-        { text: "Não", onPress: () => {} },
-        { text: "Sim", onPress: () => deleteAll() },
-      ]
-    );
-  }
   async function getDataForDelete() {
     const response = await AsyncStorage.getItem(KEY_STORAGE);
     const data = response ? JSON.parse(response) : [];
@@ -92,6 +82,17 @@ export function Profile() {
       return;
     }
     confirmRemove();
+  }
+
+  function confirmRemove() {
+    Alert.alert(
+      "Atenção",
+      "Esta ação não pode ser desfeita. Deseja prosseguir",
+      [
+        { text: "Não", onPress: () => {} },
+        { text: "Sim", onPress: () => deleteAll() },
+      ]
+    );
   }
 
   async function deleteAll() {
@@ -171,11 +172,7 @@ export function Profile() {
       </View>
       <Text style={styles.titles}>Avançado</Text>
       <View style={styles.viewMenu}>
-        <Menu
-          icon="save"
-          title="Backup das senhas"
-          onPress={getDataForDelete}
-        />
+        <Menu icon="save" title="Backup das senhas" />
         <Menu icon="trash" title="Apagar senhas" onPress={getDataForDelete} />
       </View>
     </View>

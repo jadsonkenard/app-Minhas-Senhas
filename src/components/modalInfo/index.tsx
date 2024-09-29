@@ -29,7 +29,7 @@ export function ModalInfo({
   passwordApp,
 }: ModalInfoProps) {
   return (
-    <Modal visible={isVisible} animationType="slide">
+    <Modal visible={isVisible} animationType="fade" transparent>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>
           <View style={styles.content}>
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "rgba(24,24,24,0.6)"
   },
   content: {
     backgroundColor: theme.colors.primary,

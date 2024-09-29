@@ -25,14 +25,14 @@ const styles = StyleSheet.create({
     height: RFPercentage(6),
     width: RFPercentage(45),
     borderRadius: 8,
-    backgroundColor: theme.colors.gray,
+    backgroundColor: theme.colors.gray80,
     paddingHorizontal: RFPercentage(1),
     justifyContent: "space-between",
     marginVertical: 4
   },
   title: {
     fontFamily: theme.fonts.bold,
-    fontSize: 18,
+    fontSize: 14,
     position: "absolute",
     left: RFPercentage(4.5)
   },

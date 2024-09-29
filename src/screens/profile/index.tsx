@@ -64,6 +64,7 @@ export function Profile() {
     }
     setIsLoading(false);
     setVisible(false);
+    getUserName();
   }
 
   async function getUserName() {
@@ -71,6 +72,10 @@ export function Profile() {
     const dataUser = response ? JSON.parse(response) : {};
 
     setDataUsername([dataUser]);
+    
+    setName(dataUser.name)
+    setLastName(dataUser.lastName)
+    setEmail(dataUser.email)
   }
 
   async function getDataForDelete() {
@@ -102,7 +107,7 @@ export function Profile() {
 
   useEffect(() => {
     getUserName();
-  });
+  }, []);
 
   const nameString = dataUserName.map((item) => item.name).toString();
   const lastNameString = dataUserName.map((item) => item.lastName).toString();
@@ -127,6 +132,7 @@ export function Profile() {
             onChangeText={setName}
             onChange={() => setErroName("")}
             placeholder="Nome"
+            value={name}
           />
           {erroName ? (
             <Text style={styles.erroMessage}>{erroName}</Text>
@@ -138,6 +144,7 @@ export function Profile() {
             onChange={() => setErroLastName("")}
             onChangeText={setLastName}
             placeholder="Sobrenome"
+            value={lastName}
           />
           {erroLastName ? (
             <Text style={styles.erroMessage}>{erroLastName}</Text>
@@ -149,6 +156,7 @@ export function Profile() {
             onChange={() => setErroEmail("")}
             onChangeText={setEmail}
             placeholder="Email"
+            value={email}
           />
           {erroEmail ? (
             <Text style={styles.erroMessage}>{erroEmail}</Text>

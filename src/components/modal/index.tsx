@@ -109,9 +109,11 @@ export function Modal({ isVisible, onClose }: ModalProps) {
               <Input
                 icon="heart"
                 value={nameApp}
-                placeholder="Nome"
+                placeholder="Nome do app"
                 onChange={() => setErrorName("")}
                 onChangeText={setNameApp}
+                autoCapitalize="none"
+                autoCorrect={false}
               />
               <Text style={styles.errorMessage}>
                 {errorName ? errorName : noError}
@@ -119,9 +121,12 @@ export function Modal({ isVisible, onClose }: ModalProps) {
               <Input
                 icon="at-sign"
                 value={loginApp}
-                placeholder="Login ou email"
+                placeholder="Nome de usuário ou email"
                 onChange={() => setErrorLogin("")}
                 onChangeText={setLoginApp}
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="email-address"
               />
               <Text style={styles.errorMessage}>
                 {errorLogin ? errorLogin : noError}
@@ -132,6 +137,8 @@ export function Modal({ isVisible, onClose }: ModalProps) {
                 placeholder="Senha"
                 onChange={() => setErrorPass("")}
                 onChangeText={setPasswordApp}
+                autoCapitalize="none"
+                autoCorrect={false}
               />
               <Text style={styles.errorMessage}>
                 {errorPass ? errorPass : noError}

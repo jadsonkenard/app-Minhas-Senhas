@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { theme } from "../../theme";
 import { v4 as uuid } from "uuid";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+import { StackScreensProps } from "../../routes/routes";
 
 const VALID_EMAIL_EXPRESSION =
   /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
@@ -19,6 +21,8 @@ type User = {
 };
 
 export function Profile() {
+  const { navigate } = useNavigation<StackScreensProps>();
+
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -120,9 +124,9 @@ export function Profile() {
       </View>
       <Text style={styles.titles}>Dados pessoais</Text>
       <View style={styles.viewMenu}>
-        <Menu icon="user" title={nameString} />
-        <Menu icon="user-check" title={lastNameString} />
-        <Menu icon="at-sign" title={emailString} />
+        <Menu icon="user" title={nameString} onPress={() => setVisible(true)}/>
+        <Menu icon="user-check" title={lastNameString} onPress={() => setVisible(true)}/>
+        <Menu icon="at-sign" title={emailString} onPress={() => setVisible(true)}/>
       </View>
       <ModalGlobal isVisible={visible} onCLose={() => setVisible(false)}>
         <View style={styles.modalContent}>
@@ -133,6 +137,8 @@ export function Profile() {
             onChange={() => setErroName("")}
             placeholder="Nome"
             value={name}
+            autoCapitalize="none"
+            autoCorrect={false}
           />
           {erroName ? (
             <Text style={styles.erroMessage}>{erroName}</Text>
@@ -145,6 +151,8 @@ export function Profile() {
             onChangeText={setLastName}
             placeholder="Sobrenome"
             value={lastName}
+            autoCapitalize="none"
+            autoCorrect={false}
           />
           {erroLastName ? (
             <Text style={styles.erroMessage}>{erroLastName}</Text>
@@ -157,6 +165,9 @@ export function Profile() {
             onChangeText={setEmail}
             placeholder="Email"
             value={email}
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="email-address"
           />
           {erroEmail ? (
             <Text style={styles.erroMessage}>{erroEmail}</Text>
@@ -173,14 +184,9 @@ export function Profile() {
           </View>
         </View>
       </ModalGlobal>
-      <View style={styles.button}>
-        <Button onPress={() => setVisible(true)}>
-          <Text>Alterar</Text>
-        </Button>
-      </View>
       <Text style={styles.titles}>Avançado</Text>
       <View style={styles.viewMenu}>
-        <Menu icon="save" title="Backup das senhas" />
+        <Menu icon="save" title="Backup das senhas" onPress={() => navigate("Backup")}/>
         <Menu icon="trash" title="Apagar senhas" onPress={getDataForDelete} />
       </View>
     </View>
@@ -223,9 +229,6 @@ const styles = StyleSheet.create({
   buttonsModal: {
     flexDirection: "row",
     marginTop: RFPercentage(1),
-  },
-  button: {
-    marginTop: RFPercentage(2),
   },
   erroMessage: {
     fontFamily: theme.fonts.regular,

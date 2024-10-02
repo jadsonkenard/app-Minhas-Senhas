@@ -52,13 +52,13 @@ const styles = StyleSheet.create({
   },
   loginApp: {
     fontFamily: theme.fonts.bold,
-    fontSize: 22,
+    fontSize: 18,
     marginLeft: RFPercentage(2),
     marginBottom: -2,
   },
   passwordApp: {
     fontFamily: theme.fonts.regular,
-    fontSize: 22,
+    fontSize: 18,
     marginLeft: RFPercentage(2),
   },
 });

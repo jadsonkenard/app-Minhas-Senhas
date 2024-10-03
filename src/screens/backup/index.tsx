@@ -20,8 +20,6 @@ export function Backup() {
     const dataBackup = response ? JSON.parse(response) : [];
 
     setBackup(dataBackup)
-    // console.log(setBackup)
-
   }
 
   return <View style={styles.container}>

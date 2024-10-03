@@ -28,11 +28,9 @@ export function Profile() {
   const [email, setEmail] = useState("");
   const [dataUserName, setDataUsername] = useState<User[]>([]);
   const [visible, setVisible] = useState(false);
-
   const [erroName, setErroName] = useState("");
   const [erroLastName, setErroLastName] = useState("");
   const [erroEmail, setErroEmail] = useState("");
-
   const [isLoading, setIsLoading] = useState(false);
 
   function formValidator() {
@@ -76,10 +74,10 @@ export function Profile() {
     const dataUser = response ? JSON.parse(response) : {};
 
     setDataUsername([dataUser]);
-    
-    setName(dataUser.name)
-    setLastName(dataUser.lastName)
-    setEmail(dataUser.email)
+
+    setName(dataUser.name);
+    setLastName(dataUser.lastName);
+    setEmail(dataUser.email);
   }
 
   async function getDataForDelete() {
@@ -113,10 +111,6 @@ export function Profile() {
     getUserName();
   }, []);
 
-  const nameString = dataUserName.map((item) => item.name).toString();
-  const lastNameString = dataUserName.map((item) => item.lastName).toString();
-  const emailString = dataUserName.map((item) => item.email).toString();
-
   return (
     <View style={styles.container}>
       <View style={styles.viewImage}>
@@ -124,9 +118,17 @@ export function Profile() {
       </View>
       <Text style={styles.titles}>Dados pessoais</Text>
       <View style={styles.viewMenu}>
-        <Menu icon="user" title={nameString} onPress={() => setVisible(true)}/>
-        <Menu icon="user-check" title={lastNameString} onPress={() => setVisible(true)}/>
-        <Menu icon="at-sign" title={emailString} onPress={() => setVisible(true)}/>
+        <Menu icon="user" title={name} onPress={() => setVisible(true)} />
+        <Menu
+          icon="user-check"
+          title={lastName}
+          onPress={() => setVisible(true)}
+        />
+        <Menu
+          icon="at-sign"
+          title={email}
+          onPress={() => setVisible(true)}
+        />
       </View>
       <ModalGlobal isVisible={visible} onCLose={() => setVisible(false)}>
         <View style={styles.modalContent}>
@@ -186,7 +188,11 @@ export function Profile() {
       </ModalGlobal>
       <Text style={styles.titles}>Avançado</Text>
       <View style={styles.viewMenu}>
-        <Menu icon="save" title="Backup das senhas" onPress={() => navigate("Backup")}/>
+        <Menu
+          icon="save"
+          title="Backup das senhas"
+          onPress={() => navigate("Backup")}
+        />
         <Menu icon="trash" title="Apagar senhas" onPress={getDataForDelete} />
       </View>
     </View>
